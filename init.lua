@@ -1,9 +1,9 @@
-require('maps')
-require('settings')
+require("maps")
+require("settings")
 
 if not vim.g.vscode then
-	require('plugins')
+	require("plugins")
 end
 
-vim.cmd('colorscheme github_dark_default')
+vim.cmd("colorscheme github_dark_default")
 
