@@ -54,6 +54,9 @@ return require("packer").startup(function(use)
   -- nvim-colorizer
   use 'NvChad/nvim-colorizer.lua'
 
+  -- nvim-cursorline
+  use 'yamatsum/nvim-cursorline'
+
   -- Bootstrap packer
   if packer_bootstrap then
 	  require("packer").sync()

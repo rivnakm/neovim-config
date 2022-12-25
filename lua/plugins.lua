@@ -53,6 +53,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+-- nvim-colorizer setup
 require("colorizer").setup({
   filetypes = { "lua"; "css"; "html"; "javascript"; "typescript"; "react"; "svelte"; "vue" },
       user_default_options = {
@@ -76,3 +77,17 @@ require("colorizer").setup({
       -- all the sub-options of filetypes apply to buftypes
       buftypes = {},
 })
+
+-- nvim-cursorline setup
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 10,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}
