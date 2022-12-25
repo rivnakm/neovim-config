@@ -51,6 +51,9 @@ return require("packer").startup(function(use)
   -- Barbar
   use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
 
+  -- Dashboard
+  use 'glepnir/dashboard-nvim'
+
   -- nvim-colorizer
   use 'NvChad/nvim-colorizer.lua'
 
