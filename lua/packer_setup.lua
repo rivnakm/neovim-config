@@ -51,6 +51,9 @@ return require("packer").startup(function(use)
   -- Barbar
   use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
 
+  -- nvim-colorizer
+  use 'NvChad/nvim-colorizer.lua'
+
   -- Bootstrap packer
   if packer_bootstrap then
 	  require("packer").sync()
