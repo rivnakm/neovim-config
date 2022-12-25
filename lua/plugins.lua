@@ -54,7 +54,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require("colorizer").setup({
-  filetypes = { "*" },
+  filetypes = { "lua"; "css"; "html"; "javascript"; "typescript"; "react"; "svelte"; "vue" },
       user_default_options = {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
