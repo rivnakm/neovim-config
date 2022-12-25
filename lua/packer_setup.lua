@@ -16,8 +16,16 @@ return require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   -- Github Neovim Theme
-  use "projekt0n/github-nvim-theme"
+  use({
+    'projekt0n/github-nvim-theme',
+    config = function()
+      require('github-theme').setup({
+        theme_style = "dark_default",
+      })
+    end
+  })
 
+  -- Treesitter
   use {
         "nvim-treesitter/nvim-treesitter",
         run = function()
@@ -26,9 +34,24 @@ return require("packer").startup(function(use)
         end,
   }
 
+  -- Devicons
   use 'nvim-tree/nvim-web-devicons'
+
+  -- Galaxyline
+  use({
+    "NTBBloodbath/galaxyline.nvim",
+    -- your statusline
+    config = function()
+      require("galaxyline.theme")
+    end,
+    -- some optional icons
+    requires = { "nvim-tree/nvim-web-devicons", opt = true }
+  })
+
+  -- Barbar
   use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
 
+  -- Bootstrap packer
   if packer_bootstrap then
 	  require("packer").sync()
   end
