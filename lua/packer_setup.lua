@@ -54,6 +54,14 @@ return require("packer").startup(function(use)
   -- Dashboard
   use 'glepnir/dashboard-nvim'
 
+  -- Toggleterm
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup({
+	    size = vim.o.columns * 0.4,
+	    direction = "vertical"
+    })
+  end}
+
   -- nvim-colorizer
   use 'NvChad/nvim-colorizer.lua'
 
