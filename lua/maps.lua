@@ -21,3 +21,6 @@ vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>", { noremap = true, silent
 -- Toggleterm
 vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 
+-- nvim-comment
+vim.keymap.set("n", "<leader>cc", "<Cmd>CommentToggle<CR>", { noremap = true, silent = true })
+

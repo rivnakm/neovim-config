@@ -179,7 +179,7 @@ return require("packer").startup(function(use)
         tag = "*",
         config = function()
             require("toggleterm").setup({
-                size = vim.o.columns * 0.4,
+                size = vim.o.columns * 0.3,
                 direction = "vertical"
             })
         end
@@ -239,6 +239,14 @@ return require("packer").startup(function(use)
         requires = {"winston0410/cmd-parser.nvim"},
         config = function()
             require("range-highlight").setup{}
+        end
+    }
+
+    -- nvim-comment
+    use {
+        "terrortylor/nvim-comment",
+        config = function()
+            require('nvim_comment').setup({create_mappings = false})
         end
     }
 
