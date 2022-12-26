@@ -8,7 +8,11 @@ vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("t", "jj", "<C-\\><C-N>", { noremap = true, silent = true })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-N>", { noremap = true, silent = true })
 
--- barbar keymaps
+-- nvim-tree
+vim.keymap.set("n", "<leader>ft", "<Cmd>NvimTreeToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ff", "<Cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
+
+-- barbar
 vim.keymap.set("n", "<A-,>", "<Cmd>BufferPrevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", { noremap = true, silent = true })
