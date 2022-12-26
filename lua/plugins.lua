@@ -30,6 +30,7 @@ return require("packer").startup(function(use)
     -- Treesitter
     use {
         "nvim-treesitter/nvim-treesitter",
+        requires = { "p00f/nvim-ts-rainbow", opt = false },
         run = function()
             local ts_update = require("nvim-treesitter.install").update({
                 with_sync = true
@@ -77,6 +78,15 @@ return require("packer").startup(function(use)
                     -- Using this option may slow down your editor, and you may see some duplicate highlights.
                     -- Instead of true it can also be a list of languages
                     additional_vim_regex_highlighting = false
+                },
+
+                rainbow = {
+                    enable = true,
+                    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+                    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+                    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+                    colors = { "#ffa657", "#7ee787", "#ff7b72", "#79c0ff", "#d2a8ff"}, -- table of hex strings
+                    -- termcolors = {} -- table of colour name strings
                 }
             }
         end
