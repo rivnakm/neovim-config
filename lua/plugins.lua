@@ -195,6 +195,7 @@ return require("packer").startup(function(use)
         end
     }
 
+    -- autopairs
     use {
 	    "windwp/nvim-autopairs",
         config = function()
@@ -264,6 +265,14 @@ return require("packer").startup(function(use)
         "terrortylor/nvim-comment",
         config = function()
             require('nvim_comment').setup({create_mappings = false})
+        end
+    }
+
+    -- scrollbar
+    use {
+        "petertriho/nvim-scrollbar",
+        config = function()
+            require('scrollbar').setup{}
         end
     }
 
