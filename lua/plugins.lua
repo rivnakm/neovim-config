@@ -21,9 +21,9 @@ return require("packer").startup(function(use)
 
     -- Github Neovim Theme
     use({
-        'projekt0n/github-nvim-theme',
+        "projekt0n/github-nvim-theme",
         config = function()
-            require('github-theme').setup({theme_style = "dark_default"})
+            require("github-theme").setup({theme_style = "dark_default"})
         end
     })
 
@@ -37,7 +37,7 @@ return require("packer").startup(function(use)
             ts_update()
         end,
         config = function()
-            require'nvim-treesitter.configs'.setup {
+            require"nvim-treesitter.configs".setup {
                 -- A list of parser names, or "all"
                 ensure_installed = {
                     "bash", "fish", "gitcommit", "gitignore", "javascript",
@@ -49,7 +49,7 @@ return require("packer").startup(function(use)
                 sync_install = false,
 
                 -- Automatically install missing parsers when entering buffer
-                -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+                -- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
                 auto_install = true,
 
                 highlight = {
@@ -73,7 +73,7 @@ return require("packer").startup(function(use)
                     end,
 
                     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                    -- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
                     -- Using this option may slow down your editor, and you may see some duplicate highlights.
                     -- Instead of true it can also be a list of languages
                     additional_vim_regex_highlighting = false
@@ -83,7 +83,7 @@ return require("packer").startup(function(use)
     }
 
     -- Devicons
-    use 'nvim-tree/nvim-web-devicons'
+    use "nvim-tree/nvim-web-devicons"
 
     -- Galaxyline
     use({
@@ -95,15 +95,15 @@ return require("packer").startup(function(use)
     })
 
     -- Barbar
-    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
+    use {"romgrk/barbar.nvim", wants = "nvim-web-devicons"}
 
     -- nvim-tree
     use {
-        'nvim-tree/nvim-tree.lua',
+        "nvim-tree/nvim-tree.lua",
         requires = {
-            'nvim-tree/nvim-web-devicons' -- optional, for file icons
+            "nvim-tree/nvim-web-devicons" -- optional, for file icons
         },
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        tag = "nightly", -- optional, updated every week. (see issue #1193)
         config = function()
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
@@ -131,33 +131,43 @@ return require("packer").startup(function(use)
         end,
     }
 
+    -- LSP format
+    use {
+        "lukas-reineke/lsp-format.nvim",
+        config = function()
+            require("lsp-format").setup {}
+            -- configure language servers for formatting
+            -- require("lspconfig").rust-analyzer.setup { on_attach = require("lsp-format").on_attach }
+        end
+    }
+
     -- Dashboard
     use {
-        'glepnir/dashboard-nvim',
+        "glepnir/dashboard-nvim",
         config = function()
-            local db = require('dashboard')
+            local db = require("dashboard")
             -- Neovim logo
             if vim.g.neovide then
                 db.custom_header = {
-                    '',
-                    '███╗   ██╗ ███████╗  ██████╗  ██╗   ██╗ ██╗ ██████╗  ███████╗',
-                    '████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ██╔══██╗ ██╔════╝',
-                    '██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██║  ██║ █████╗  ',
-                    '██║╚██╗██║ ██╔══╝   ██║   ██║ ╚██╗ ██╔╝ ██║ ██║  ██║ ██╔══╝  ',
-                    '██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██████╔╝ ███████╗',
-                    '╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═════╝  ╚══════╝',
-                    ''
+                    "",
+                    "███╗   ██╗ ███████╗  ██████╗  ██╗   ██╗ ██╗ ██████╗  ███████╗",
+                    "████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ██╔══██╗ ██╔════╝",
+                    "██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██║  ██║ █████╗  ",
+                    "██║╚██╗██║ ██╔══╝   ██║   ██║ ╚██╗ ██╔╝ ██║ ██║  ██║ ██╔══╝  ",
+                    "██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██████╔╝ ███████╗",
+                    "╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═════╝  ╚══════╝",
+                    ""
                 }
             else
                 db.custom_header = {
-                    '',
-                    '███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-                    '████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-                    '██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-                    '██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-                    '██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-                    '╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-                    ''
+                    "",
+                    "███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+                    "████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+                    "██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+                    "██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+                    "██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+                    "╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+                    ""
                 }
             end
         end
@@ -166,7 +176,7 @@ return require("packer").startup(function(use)
     -- Toggleterm
     use {
         "akinsho/toggleterm.nvim",
-        tag = '*',
+        tag = "*",
         config = function()
             require("toggleterm").setup({
                 size = vim.o.columns * 0.4,
@@ -177,7 +187,7 @@ return require("packer").startup(function(use)
 
     -- nvim-colorizer
     use {
-        'NvChad/nvim-colorizer.lua',
+        "NvChad/nvim-colorizer.lua",
         config = function()
             require("colorizer").setup({
                 filetypes = {
@@ -210,9 +220,9 @@ return require("packer").startup(function(use)
 
     -- nvim-cursorline
     use {
-        'yamatsum/nvim-cursorline',
+        "yamatsum/nvim-cursorline",
         config = function()
-            require('nvim-cursorline').setup {
+            require("nvim-cursorline").setup {
                 cursorline = {enable = true, timeout = 10, number = false},
                 cursorword = {
                     enable = true,
@@ -220,6 +230,15 @@ return require("packer").startup(function(use)
                     hl = {underline = true}
                 }
             }
+        end
+    }
+
+    -- range-highlight
+    use {
+        "winston0410/range-highlight.nvim",
+        requires = {"winston0410/cmd-parser.nvim"},
+        config = function()
+            require("range-highlight").setup{}
         end
     }
 
