@@ -17,7 +17,7 @@ local packer_bootstrap = ensure_packer()
 
 return require("packer").startup(function(use)
     -- Packer can manage itself
-    use "wbthomason/packer.nvim"
+    use("wbthomason/packer.nvim")
 
     -- Github Neovim Theme
     use({
@@ -28,9 +28,9 @@ return require("packer").startup(function(use)
     })
 
     -- Treesitter
-    use {
+    use({
         "nvim-treesitter/nvim-treesitter",
-        requires = { "p00f/nvim-ts-rainbow", opt = false },
+        requires = {"p00f/nvim-ts-rainbow", opt = false},
         run = function()
             local ts_update = require("nvim-treesitter.install").update({
                 with_sync = true
@@ -85,15 +85,103 @@ return require("packer").startup(function(use)
                     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
                     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
                     max_file_lines = nil, -- Do not enable for files with more than n lines, int
-                    colors = { "#ffa657", "#7ee787", "#ff7b72", "#79c0ff", "#d2a8ff"}, -- table of hex strings
+                    colors = {
+                        "#ffa657", "#7ee787", "#ff7b72", "#79c0ff", "#d2a8ff"
+                    } -- table of hex strings
                     -- termcolors = {} -- table of colour name strings
                 }
             }
         end
-    }
+    })
+
+    -- Treesitter text objects
+    use({
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+                textobjects = {
+                    select = {
+                        enable = true,
+                        
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            -- You can optionally set descriptions to the mappings (used in the desc parameter of
+                            -- nvim_buf_set_keymap) which plugins like which-key display
+                            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                        },
+                        -- You can choose the select mode (default is charwise 'v')
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * method: eg 'v' or 'o'
+                        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+                        -- mapping query_strings to modes.
+                        selection_modes = {
+                            ['@parameter.outer'] = 'v', -- charwise
+                            ['@function.outer'] = 'V', -- linewise
+                            ['@class.outer'] = '<c-v>', -- blockwise
+                        },
+                        -- If you set this to `true` (default is `false`) then any textobject is
+                        -- extended to include preceding or succeeding whitespace. Succeeding
+                        -- whitespace has priority in order to act similarly to eg the built-in
+                        -- `ap`.
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * selection_mode: eg 'v'
+                        -- and should return true of false
+                        include_surrounding_whitespace = true,
+                    },
+                },
+            }
+        end,
+    })
+
+    -- LSP Config
+    use({
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+        
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-nvim-lua'},
+        
+            -- Snippets
+            {'L3MON4D3/LuaSnip'},
+            {'rafamadriz/friendly-snippets'},
+        },
+        config = function()
+            local lsp = require('lsp-zero')
+            lsp.preset('recommended')
+            lsp.setup()
+        end
+    })
+
+    -- Rust tools
+    use({
+        "simrat39/rust-tools.nvim",
+        requires = { "neovim/nvim-lspconfig" },
+        config = function()
+            require("rust-tools").setup()
+        end
+    })
 
     -- Devicons
-    use "nvim-tree/nvim-web-devicons"
+    use("nvim-tree/nvim-web-devicons")
 
     -- Galaxyline
     use({
@@ -105,15 +193,16 @@ return require("packer").startup(function(use)
     })
 
     -- Barbar
-    use {"romgrk/barbar.nvim", wants = "nvim-web-devicons"}
+    use({
+        "romgrk/barbar.nvim",
+        requires = {"nvim-tree/nvim-web-devicons", opt = true}
+    })
 
     -- nvim-tree
-    use {
+    use({
         "nvim-tree/nvim-tree.lua",
-        requires = {
-            "nvim-tree/nvim-web-devicons" -- optional, for file icons
-        },
-        tag = "nightly", -- optional, updated every week. (see issue #1193)
+        requires = {"nvim-tree/nvim-web-devicons", opt = true},
+        tag = "nightly",
         config = function()
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
@@ -122,37 +211,49 @@ return require("packer").startup(function(use)
             vim.opt.termguicolors = true
 
             require("nvim-tree").setup({
-              sort_by = "case_sensitive",
-              view = {
-                adaptive_size = true,
+                sort_by = "case_sensitive",
+                view = {
+                    adaptive_size = true,
+                    mappings = {list = {{key = "u", action = "dir_up"}}}
+                },
+                renderer = {group_empty = true},
+                filters = {dotfiles = true}
+            })
+        end
+    })
+
+    -- Fuzzy Finder (files, lsp, etc)
+    use({
+        'nvim-telescope/telescope.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('telescope').setup {
+              defaults = {
                 mappings = {
-                  list = {
-                    { key = "u", action = "dir_up" },
+                  i = {
+                    ['<C-u>'] = false,
+                    ['<C-d>'] = false,
                   },
                 },
               },
-              renderer = {
-                group_empty = true,
-              },
-              filters = {
-                dotfiles = true,
-              },
-            })
-        end,
-    }
+            }
+        end
+    })
+
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    use({
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        cond = vim.fn.executable 'make' == 1,
+        config = function() pcall(require('telescope').load_extension, 'fzf') end
+    })
 
     -- LSP format
-    use {
-        "lukas-reineke/lsp-format.nvim",
-        config = function()
-            require("lsp-format").setup {}
-            -- configure language servers for formatting
-            -- require("lspconfig").rust-analyzer.setup { on_attach = require("lsp-format").on_attach }
-        end
-    }
+    use("lukas-reineke/lsp-format.nvim")
+    -- config in lsp.lua
 
     -- Dashboard
-    use {
+    use({
         "glepnir/dashboard-nvim",
         config = function()
             local db = require("dashboard")
@@ -181,10 +282,10 @@ return require("packer").startup(function(use)
                 }
             end
         end
-    }
+    })
 
     -- Toggleterm
-    use {
+    use({
         "akinsho/toggleterm.nvim",
         tag = "*",
         config = function()
@@ -193,18 +294,35 @@ return require("packer").startup(function(use)
                 direction = "vertical"
             })
         end
-    }
+    })
 
     -- autopairs
-    use {
-	    "windwp/nvim-autopairs",
+    use({
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup() end
+    })
+
+    -- tabset
+    use({
+        "FotiadisM/tabset.nvim",
         config = function()
-            require("nvim-autopairs").setup{}
+            require("tabset").setup({
+                defaults = {tabwidth = 4, expandtab = true},
+                languages = {
+                    {
+                        filetypes = {
+                            "javascript", "typescript", "svelte", "vue", "json",
+                            "yaml", "toml"
+                        },
+                        config = {tabwidth = 2}
+                    }
+                }
+            })
         end
-    }
+    })
 
     -- nvim-colorizer
-    use {
+    use({
         "NvChad/nvim-colorizer.lua",
         config = function()
             require("colorizer").setup({
@@ -234,10 +352,10 @@ return require("packer").startup(function(use)
                 buftypes = {}
             })
         end
-    }
+    })
 
     -- nvim-cursorline
-    use {
+    use({
         "yamatsum/nvim-cursorline",
         config = function()
             require("nvim-cursorline").setup {
@@ -249,32 +367,29 @@ return require("packer").startup(function(use)
                 }
             }
         end
-    }
+    })
 
     -- range-highlight
-    use {
+    use({
         "winston0410/range-highlight.nvim",
         requires = {"winston0410/cmd-parser.nvim"},
-        config = function()
-            require("range-highlight").setup{}
-        end
-    }
+        config = function() require("range-highlight").setup {} end
+    })
 
-    -- nvim-comment
-    use {
-        "terrortylor/nvim-comment",
+    use({
+        'numToStr/Comment.nvim',
         config = function()
-            require('nvim_comment').setup({create_mappings = false})
+            require('Comment').setup({
+                mappings = { extra = false }
+            })
         end
-    }
+    })
 
     -- scrollbar
-    use {
+    use({
         "petertriho/nvim-scrollbar",
-        config = function()
-            require('scrollbar').setup{}
-        end
-    }
+        config = function() require('scrollbar').setup {} end
+    })
 
     -- Bootstrap packer
     if packer_bootstrap then require("packer").sync() end

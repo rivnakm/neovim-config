@@ -1,13 +1,9 @@
 -- Use system clipboard
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-
-vim.bo.tabstop = 4 -- size of a hard tabstop (ts).
-vim.bo.shiftwidth = 4 -- size of an indentation (sw).
-vim.bo.expandtab = true -- always uses spaces instead of tab characters (et).
-vim.bo.softtabstop = 4 -- number of spaces a <Tab> counts for. When 0, feature is off (sts).
+vim.o.number = true
+vim.o.relativenumber = true
+vim.wo.wrap = false
 
 -- Automatically toggle between absolute and hybrid line numbers
 local number_toggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
