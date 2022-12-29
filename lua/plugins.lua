@@ -1,7 +1,7 @@
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath("data") ..
-                             "/site/pack/packer/start/packer.nvim"
+        "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
         fn.system({
             "git", "clone", "--depth", "1",
@@ -23,14 +23,14 @@ return require("packer").startup(function(use)
     use({
         "projekt0n/github-nvim-theme",
         config = function()
-            require("github-theme").setup({theme_style = "dark_default"})
+            require("github-theme").setup({ theme_style = "dark_default" })
         end
     })
 
     -- Treesitter
     use({
         "nvim-treesitter/nvim-treesitter",
-        requires = {"p00f/nvim-ts-rainbow", opt = false},
+        requires = { "p00f/nvim-ts-rainbow", opt = false },
         run = function()
             local ts_update = require("nvim-treesitter.install").update({
                 with_sync = true
@@ -38,7 +38,7 @@ return require("packer").startup(function(use)
             ts_update()
         end,
         config = function()
-            require"nvim-treesitter.configs".setup {
+            require "nvim-treesitter.configs".setup {
                 -- A list of parser names, or "all"
                 ensure_installed = {
                     "bash", "fish", "gitcommit", "gitignore", "javascript",
@@ -61,13 +61,13 @@ return require("packer").startup(function(use)
                     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
                     -- the name of the parser)
                     -- list of language that will be disabled
-                    disable = {"c", "rust"},
+                    disable = { "c", "rust" },
                     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
                     disable = function(lang, buf)
                         local max_filesize = 100 * 1024 -- 100 KB
                         local ok, stats =
-                            pcall(vim.loop.fs_stat,
-                                  vim.api.nvim_buf_get_name(buf))
+                        pcall(vim.loop.fs_stat,
+                            vim.api.nvim_buf_get_name(buf))
                         if ok and stats and stats.size > max_filesize then
                             return true
                         end
@@ -98,11 +98,11 @@ return require("packer").startup(function(use)
     use({
         "nvim-treesitter/nvim-treesitter-textobjects",
         config = function()
-            require'nvim-treesitter.configs'.setup {
+            require "nvim-treesitter.configs".setup {
                 textobjects = {
                     select = {
                         enable = true,
-                        
+
                         -- Automatically jump forward to textobj, similar to targets.vim
                         lookahead = true,
 
@@ -115,17 +115,17 @@ return require("packer").startup(function(use)
                             -- nvim_buf_set_keymap) which plugins like which-key display
                             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
                         },
-                        -- You can choose the select mode (default is charwise 'v')
+                        -- You can choose the select mode (default is charwise "v")
                         --
                         -- Can also be a function which gets passed a table with the keys
-                        -- * query_string: eg '@function.inner'
-                        -- * method: eg 'v' or 'o'
-                        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+                        -- * query_string: eg "@function.inner"
+                        -- * method: eg "v" or "o"
+                        -- and should return the mode ("v", "V", or "<c-v>") or a table
                         -- mapping query_strings to modes.
                         selection_modes = {
-                            ['@parameter.outer'] = 'v', -- charwise
-                            ['@function.outer'] = 'V', -- linewise
-                            ['@class.outer'] = '<c-v>', -- blockwise
+                            ["@parameter.outer"] = "v", -- charwise
+                            ["@function.outer"] = "V", -- linewise
+                            ["@class.outer"] = "<c-v>", -- blockwise
                         },
                         -- If you set this to `true` (default is `false`) then any textobject is
                         -- extended to include preceding or succeeding whitespace. Succeeding
@@ -133,8 +133,8 @@ return require("packer").startup(function(use)
                         -- `ap`.
                         --
                         -- Can also be a function which gets passed a table with the keys
-                        -- * query_string: eg '@function.inner'
-                        -- * selection_mode: eg 'v'
+                        -- * query_string: eg "@function.inner"
+                        -- * selection_mode: eg "v"
                         -- and should return true of false
                         include_surrounding_whitespace = true,
                     },
@@ -145,28 +145,28 @@ return require("packer").startup(function(use)
 
     -- LSP Config
     use({
-        'VonHeikemen/lsp-zero.nvim',
+        "VonHeikemen/lsp-zero.nvim",
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
-        
+            { "neovim/nvim-lspconfig" },
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" },
+
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
-        
+            { "hrsh7th/nvim-cmp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lua" },
+
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { "L3MON4D3/LuaSnip" },
+            { "rafamadriz/friendly-snippets" },
         },
         config = function()
-            local lsp = require('lsp-zero')
-            lsp.preset('recommended')
+            local lsp = require("lsp-zero")
+            lsp.preset("recommended")
             lsp.setup()
         end
     })
@@ -176,7 +176,15 @@ return require("packer").startup(function(use)
         "simrat39/rust-tools.nvim",
         requires = { "neovim/nvim-lspconfig" },
         config = function()
-            require("rust-tools").setup()
+            require("rust-tools").setup({
+                server = {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            inlayHints = { locationLinks = false }, -- workaround for https://github.com/simrat39/rust-tools.nvim/issues/300
+                        },
+                    },
+                },
+            })
         end
     })
 
@@ -189,19 +197,19 @@ return require("packer").startup(function(use)
         -- your statusline
         config = function() require("galaxyline.theme") end,
         -- some optional icons
-        requires = {"nvim-tree/nvim-web-devicons", opt = true}
+        requires = { "nvim-tree/nvim-web-devicons", opt = true }
     })
 
     -- Barbar
     use({
         "romgrk/barbar.nvim",
-        requires = {"nvim-tree/nvim-web-devicons", opt = true}
+        requires = { "nvim-tree/nvim-web-devicons", opt = true }
     })
 
     -- nvim-tree
     use({
         "nvim-tree/nvim-tree.lua",
-        requires = {"nvim-tree/nvim-web-devicons", opt = true},
+        requires = { "nvim-tree/nvim-web-devicons", opt = true },
         tag = "nightly",
         config = function()
             vim.g.loaded_netrw = 1
@@ -214,43 +222,39 @@ return require("packer").startup(function(use)
                 sort_by = "case_sensitive",
                 view = {
                     adaptive_size = true,
-                    mappings = {list = {{key = "u", action = "dir_up"}}}
+                    mappings = { list = { { key = "u", action = "dir_up" } } }
                 },
-                renderer = {group_empty = true},
-                filters = {dotfiles = true}
+                renderer = { group_empty = true },
+                filters = { dotfiles = true }
             })
         end
     })
 
     -- Fuzzy Finder (files, lsp, etc)
     use({
-        'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
+        "nvim-telescope/telescope.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
         config = function()
-            require('telescope').setup {
-              defaults = {
-                mappings = {
-                  i = {
-                    ['<C-u>'] = false,
-                    ['<C-d>'] = false,
-                  },
+            require("telescope").setup {
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<C-u>"] = false,
+                            ["<C-d>"] = false,
+                        },
+                    },
                 },
-              },
             }
         end
     })
 
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use({
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make',
-        cond = vim.fn.executable 'make' == 1,
-        config = function() pcall(require('telescope').load_extension, 'fzf') end
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make",
+        cond = vim.fn.executable "make" == 1,
+        config = function() pcall(require("telescope").load_extension, "fzf") end
     })
-
-    -- LSP format
-    use("lukas-reineke/lsp-format.nvim")
-    -- config in lsp.lua
 
     -- Dashboard
     use({
@@ -307,14 +311,14 @@ return require("packer").startup(function(use)
         "FotiadisM/tabset.nvim",
         config = function()
             require("tabset").setup({
-                defaults = {tabwidth = 4, expandtab = true},
+                defaults = { tabwidth = 4, expandtab = true },
                 languages = {
                     {
                         filetypes = {
                             "javascript", "typescript", "svelte", "vue", "json",
                             "yaml", "toml"
                         },
-                        config = {tabwidth = 2}
+                        config = { tabwidth = 2 }
                     }
                 }
             })
@@ -359,11 +363,11 @@ return require("packer").startup(function(use)
         "yamatsum/nvim-cursorline",
         config = function()
             require("nvim-cursorline").setup {
-                cursorline = {enable = true, timeout = 10, number = false},
+                cursorline = { enable = true, timeout = 10, number = false },
                 cursorword = {
                     enable = true,
                     min_length = 3,
-                    hl = {underline = true}
+                    hl = { underline = true }
                 }
             }
         end
@@ -372,14 +376,14 @@ return require("packer").startup(function(use)
     -- range-highlight
     use({
         "winston0410/range-highlight.nvim",
-        requires = {"winston0410/cmd-parser.nvim"},
+        requires = { "winston0410/cmd-parser.nvim" },
         config = function() require("range-highlight").setup {} end
     })
 
     use({
-        'numToStr/Comment.nvim',
+        "numToStr/Comment.nvim",
         config = function()
-            require('Comment').setup({
+            require("Comment").setup({
                 mappings = { extra = false }
             })
         end
@@ -388,7 +392,7 @@ return require("packer").startup(function(use)
     -- scrollbar
     use({
         "petertriho/nvim-scrollbar",
-        config = function() require('scrollbar').setup {} end
+        config = function() require("scrollbar").setup {} end
     })
 
     -- Bootstrap packer
