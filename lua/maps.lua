@@ -13,24 +13,23 @@ vim.keymap.set("n", "<leader>ft", "<Cmd>NvimTreeToggle<CR>", { noremap = true, s
 vim.keymap.set("n", "<leader>ff", "<Cmd>NvimTreeFocus<CR>", { noremap = true, silent = true, desc = "Focus file tree" })
 
 -- barbar
-vim.keymap.set("n", "<A-,>", "<Cmd>BufferPrevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
-vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
-vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", { noremap = true, silent = true, desc = "Move buffer left" })
-vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>", { noremap = true, silent = true, desc = "Move buffer right" })
+vim.keymap.set("n", "<leader>bq", "<Cmd>BufferPrevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>be", "<Cmd>BufferNext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<leader>bQ", "<Cmd>BufferMovePrevious<CR>",
+    { noremap = true, silent = true, desc = "Move buffer left" })
+vim.keymap.set("n", "<leader>bE", "<Cmd>BufferMoveNext<CR>",
+    { noremap = true, silent = true, desc = "Move buffer right" })
 
 -- Telescope
-vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles,
-    { noremap = true, silent = true, desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers,
-    { noremap = true, silent = true, desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>sr", require("telescope.builtin").oldfiles,
+    { noremap = true, silent = true, desc = "[S]earch [R]ecently opened files" })
 vim.keymap.set("n", "<leader>/", function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
         winblend = 10,
         previewer = false,
     })
-end, { noremap = true, silent = true, desc = "[/] Fuzzily search in current buffer]" })
-
+end, { noremap = true, silent = true, desc = "[S]earch in [C]urrent buffer]" })
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files,
     { noremap = true, silent = true, desc = "[S]earch [F]iles" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags,

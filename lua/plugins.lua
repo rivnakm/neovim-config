@@ -285,6 +285,20 @@ return require("packer").startup(function(use)
                     ""
                 }
             end
+            db.custom_center = {
+                { icon = '  ',
+                    desc = 'Recently opened files                   ',
+                    action = 'Telescope oldfiles',
+                    shortcut = ',sr' },
+                { icon = '  ',
+                    desc = 'Find File                               ',
+                    action = 'Telescope find_files find_command=rg,--hidden,--files',
+                    shortcut = ',sf' },
+                { icon = '  ',
+                    desc = 'Terminal                                ',
+                    action = 'ToggleTerm',
+                    shortcut = ',tt' },
+            }
         end
     })
 
