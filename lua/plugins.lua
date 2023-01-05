@@ -21,7 +21,7 @@ return require("packer").startup(function(use)
 
     -- Catppucin Theme
     use({
-        "catppucin/nvim",
+        "catppuccin/nvim",
         config = function()
             require("catppuccin").setup({
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
