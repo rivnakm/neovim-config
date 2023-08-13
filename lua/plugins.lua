@@ -19,15 +19,54 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
-    -- GitHub Dark Theme
+    -- Catppucin Theme
     use({
-        'projekt0n/github-nvim-theme',
+        "catppuccin/nvim",
         config = function()
-            require('github-theme').setup({
-                -- ...
+            require("catppuccin").setup({
+                flavour = "mocha", -- latte, frappe, macchiato, mocha
+                background = { -- :h background
+                    light = "latte",
+                    dark = "mocha",
+                },
+                transparent_background = false,
+                term_colors = false,
+                dim_inactive = {
+                    enabled = false,
+                    shade = "dark",
+                    percentage = 0.15,
+                },
+                no_italic = false, -- Force no italic
+                no_bold = false, -- Force no bold
+                styles = {
+                    comments = { "italic" },
+                    conditionals = { "italic" },
+                    loops = {},
+                    functions = {},
+                    keywords = {},
+                    strings = {},
+                    variables = {},
+                    numbers = {},
+                    booleans = {},
+                    properties = {},
+                    types = {},
+                    operators = {},
+                },
+                color_overrides = {},
+                custom_highlights = {},
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    nvimtree = true,
+                    telescope = true,
+                    notify = false,
+                    mini = false,
+                    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+                },
             })
 
-            vim.cmd('colorscheme github_dark_high_contrast')
+            -- setup must be called before loading
+            vim.cmd.colorscheme "catppuccin"
         end
     })
 
@@ -90,7 +129,7 @@ return require("packer").startup(function(use)
                     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
                     max_file_lines = nil, -- Do not enable for files with more than n lines, int
                     colors = {
-                        "#faa356", "#7ce38b", "#fa7970", "#77bdfb", "#cea5fb"
+                        "#fab387", "#a6e3a1", "#f38ba8", "#89b4fa", "#cba6f7"
                     } -- table of hex strings
                     -- termcolors = {} -- table of colour name strings
                 }
