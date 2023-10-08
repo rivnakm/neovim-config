@@ -1,6 +1,6 @@
 local gl = require("galaxyline")
-local colors = require("galaxyline.catppucin_mocha")
 local condition = require("galaxyline.condition")
+local colors = require("galaxyline.linux_theme")
 local gls = gl.section
 gl.short_line_list = { "NvimTree", "vista", "dbui", "packer" }
 
