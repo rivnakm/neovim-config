@@ -77,10 +77,6 @@ return require("packer").startup(function(use)
                     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
                     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
                     max_file_lines = nil, -- Do not enable for files with more than n lines, int
-                    colors = {
-                        "#ff5454", "#54ff54", "#ffff54", "#5454ff", "#ff54ff"
-                    } -- table of hex strings
-                    -- termcolors = {} -- table of colour name strings
                 }
             }
         end
@@ -182,17 +178,6 @@ return require("packer").startup(function(use)
 
     -- Devicons
     use("nvim-tree/nvim-web-devicons")
-
-    -- Galaxyline
-    use({
-        "NTBBloodbath/galaxyline.nvim",
-        -- your statusline
-        config = function()
-            require("galaxyline.theme")
-        end,
-        -- some optional icons
-        requires = { "nvim-tree/nvim-web-devicons", opt = true }
-    })
 
     -- Barbar
     use({
