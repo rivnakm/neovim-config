@@ -42,6 +42,13 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Disable netrw since we're using nvim-tree instead
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Enable 24-bit color
+vim.opt.termguicolors = true
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 vim.g.mapleader = " "
@@ -118,7 +125,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -264,6 +271,7 @@ require("lazy").setup({
 				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+				["<leader>t"] = { name = "nvim-[T]ree", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -389,8 +397,10 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
+
+			-- LSP formatting
+			{ "lukas-reineke/lsp-format.nvim", opts = {} },
 		},
 		config = function()
 			-- Brief Aside: **What is LSP?**
@@ -466,7 +476,7 @@ require("lazy").setup({
 
 					-- Rename the variable under your cursor
 					--  Most Language Servers support renaming across files, etc.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("<leader>rr", vim.lsp.buf.rename, "[R]e[n]ame")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
@@ -507,20 +517,21 @@ require("lazy").setup({
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-			-- Enable the following language servers
-			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-			--
-			--  Add any additional override configuration in the following tables. Available keys are:
-			--  - cmd (table): Override the default command used to start the server
-			--  - filetypes (table): Override the default list of associated filetypes for the server
-			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-			--  - settings (table): Override the default settings passed when initializing the server.
-			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			-- Language servers managed by the system
 			local servers = {
-				-- clangd = {},
 				-- gopls = {},
 				-- pyright = {},
-				-- rust_analyzer = {},
+				clangd = {},
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							checkOnSave = {
+								command = "clippy",
+							},
+						},
+					},
+				},
+				zls = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -528,8 +539,15 @@ require("lazy").setup({
 				--
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
-				--
+			}
 
+			for server_name, server in pairs(servers) do
+				server["on_attach"] = require("lsp-format").on_attach
+				require("lspconfig")[server_name].setup(server)
+			end
+
+			-- Language servers managed by mason
+			local mason_servers = {
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
@@ -568,7 +586,7 @@ require("lazy").setup({
 
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
-			local ensure_installed = vim.tbl_keys(servers or {})
+			local ensure_installed = vim.tbl_keys(mason_servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format lua code
 			})
@@ -577,11 +595,12 @@ require("lazy").setup({
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
-						local server = servers[server_name] or {}
+						local server = mason_servers[server_name] or {}
 						-- This handles overriding only values explicitly passed
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						server["on_attach"] = require("lsp-format").on_attach
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
@@ -703,32 +722,27 @@ require("lazy").setup({
 	},
 
 	-- Colorschemes
-	{ -- You can easily change to a different colorscheme.
-		-- Change the name of the colorscheme plugin below, and then
-		-- change the command in the config to whatever the name of that colorscheme is
-		--
-		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-		"folke/tokyonight.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		flavour = "mocha",
 		config = function()
-			-- Load the colorscheme here.
-			-- Like many other themes, this one has different styles, and you could load
-			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("tokyonight-night")
-
-			-- You can configure highlights by doing something like
-			vim.cmd.hi("Comment gui=none")
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
-	"NTBBloodbath/doom-one.nvim",
 
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = {
+			signs = false,
+			keywords = {
+				TODO = { alt = { "todo!()" } },
+			},
+		},
 	},
 
 	{ -- Collection of various small independent plugins/modules
@@ -780,14 +794,38 @@ require("lazy").setup({
 				ensure_installed = {
 					"bash",
 					"c",
+					"c_sharp",
+					"cmake",
 					"cpp",
+					"css",
+					"csv",
+					"dockerfile",
+					"gdscript",
+					"gitattributes",
+					"gitignore",
+					"go",
+					"gomod",
 					"html",
+					"javascript",
+					"json",
+					"json5",
+					"latex",
 					"lua",
+					"make",
 					"markdown",
 					"python",
+					"ron",
 					"rust",
+					"sql",
+					"toml",
+					"typescript",
 					"vim",
 					"vimdoc",
+					"vue",
+					"wgsl",
+					"wgsl_bevy",
+					"xml",
+					"yaml",
 					"zig",
 				},
 				-- Autoinstall languages that are not installed
@@ -803,6 +841,47 @@ require("lazy").setup({
 			--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup({})
+			local api = require("nvim-tree.api")
+			vim.keymap.set("n", "<leader>to", api.tree.open, { desc = "Open nvim-tree" })
+			vim.keymap.set("n", "<leader>tc", api.tree.close, { desc = "Close nvim-tree" })
+			vim.keymap.set("n", "<leader>tt", api.tree.toggle, { desc = "Toggle nvim-tree" })
+		end,
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		lazy = true,
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = {
+					auto_trigger = false,
+				},
+			})
+		end,
+	},
+	{
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		opts = {
+			sidebar_filetypes = {
+				NvimTree = true,
+			},
+		},
 	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -827,20 +906,21 @@ require("lazy").setup({
 	ui = {
 		-- If you have a Nerd Font, set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons otherwise define a unicode icons table
+		-- TODO: replace emojis
 		icons = vim.g.have_nerd_font and {} or {
-			cmd = "⌘",
-			config = "🛠",
-			event = "📅",
-			ft = "📂",
-			init = "⚙",
-			keys = "🗝",
-			plugin = "🔌",
-			runtime = "💻",
-			require = "🌙",
-			source = "📄",
-			start = "🚀",
-			task = "📌",
-			lazy = "💤 ",
+			cmd = "",
+			config = "󱁤",
+			event = "󰃭",
+			ft = "󰉋",
+			init = "",
+			keys = "󰌆",
+			plugin = "",
+			runtime = "󰌢",
+			require = "",
+			source = "",
+			start = "",
+			task = "󰐃",
+			lazy = "󰒲 ",
 		},
 	},
 })
