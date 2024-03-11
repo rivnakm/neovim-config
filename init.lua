@@ -568,6 +568,15 @@ require("lazy").setup({
 		priority = 1000,
 		flavour = "mocha",
 		config = function()
+			require("catppuccin").setup({
+				color_overrides = {
+					mocha = {
+						base = "#141414",
+						mantle = "#101010",
+						crust = "#0C0C0C",
+					},
+				},
+			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
@@ -717,6 +726,7 @@ require("lazy").setup({
 		init = function()
 			vim.g.barbar_auto_setup = false
 		end,
+		event = "BufEnter",
 		config = function()
 			vim.keymap.set(
 				"n",
@@ -731,12 +741,56 @@ require("lazy").setup({
 				{ noremap = true, silent = true, desc = "Previous tab" }
 			)
 			vim.keymap.set("n", "<leader>bx", "<Cmd>BufferPin<CR>", { noremap = true, silent = true, desc = "Pin tab" })
+
+			require("barbar").setup({})
 		end,
 		opts = {
 			sidebar_filetypes = {
 				NvimTree = true,
 			},
 		},
+	},
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			local header = {}
+			if vim.g.neovide then
+				header = {
+					"",
+					"███╗   ██╗ ███████╗  ██████╗  ██╗   ██╗ ██╗ ██████╗  ███████╗",
+					"████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ██╔══██╗ ██╔════╝",
+					"██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██║  ██║ █████╗  ",
+					"██║╚██╗██║ ██╔══╝   ██║   ██║ ╚██╗ ██╔╝ ██║ ██║  ██║ ██╔══╝  ",
+					"██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██████╔╝ ███████╗",
+					"╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═════╝  ╚══════╝",
+					"",
+				}
+			else
+				header = {
+					"",
+					"███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+					"████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+					"██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+					"██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+					"██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+					"╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+					"",
+				}
+			end
+			require("dashboard").setup({
+				config = {
+					header = header,
+				},
+			})
+			vim.api.nvim_create_autocmd({ "BufLeave" }, {
+				callback = function()
+					vim.api.nvim_set_option_value("showtabline", 2, {})
+				end,
+				group = number_toggle,
+			})
+		end,
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
 }, {})
 
