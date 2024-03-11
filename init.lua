@@ -779,6 +779,12 @@ require("lazy").setup({
 				{ noremap = true, silent = true, desc = "Previous tab" }
 			)
 			vim.keymap.set("n", "<leader>bx", "<Cmd>BufferPin<CR>", { noremap = true, silent = true, desc = "Pin tab" })
+			vim.keymap.set(
+				"n",
+				"<leader>bc",
+				"<Cmd>BufferClose<CR>",
+				{ noremap = true, silent = true, desc = "Close tab" }
+			)
 
 			require("barbar").setup({
 				sidebar_filetypes = {
