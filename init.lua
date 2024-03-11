@@ -160,7 +160,7 @@ require("lazy").setup({
 				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-				["<leader>t"] = { name = "nvim-[T]ree", _ = "which_key_ignore" },
+				["<leader>t"] = { name = "nvim-[T]ree/[T]erminal", _ = "which_key_ignore" },
 				["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
 			})
 		end,
@@ -569,11 +569,47 @@ require("lazy").setup({
 		flavour = "mocha",
 		config = function()
 			require("catppuccin").setup({
+				term_colors = true,
 				color_overrides = {
 					mocha = {
-						base = "#141414",
+						base = "#141417",
 						mantle = "#101010",
 						crust = "#0C0C0C",
+					},
+				},
+				highlight_overrides = {
+					mocha = function(_)
+						return {
+							NeogitDiffContextHighlight = { bg = "#272734" },
+							NeogitCursorLine = { bg = "#272734" },
+						}
+					end,
+				},
+				integrations = {
+					barbar = true,
+					dashboard = true,
+					neogit = true,
+					cmp = true,
+					dap = true,
+					dap_ui = true,
+					telescope = true,
+					native_lsp = {
+						enabled = true,
+						virtual_text = {
+							errors = { "italic" },
+							hints = { "italic" },
+							warnings = { "italic" },
+							information = { "italic" },
+						},
+						underlines = {
+							errors = { "underline" },
+							hints = { "underline" },
+							warnings = { "underline" },
+							information = { "underline" },
+						},
+						inlay_hints = {
+							background = true,
+						},
 					},
 				},
 			})
@@ -626,6 +662,8 @@ require("lazy").setup({
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
+
+			require("mini.comment").setup()
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
@@ -742,13 +780,40 @@ require("lazy").setup({
 			)
 			vim.keymap.set("n", "<leader>bx", "<Cmd>BufferPin<CR>", { noremap = true, silent = true, desc = "Pin tab" })
 
-			require("barbar").setup({})
+			require("barbar").setup({
+				sidebar_filetypes = {
+					NvimTree = true,
+				},
+			})
 		end,
-		opts = {
-			sidebar_filetypes = {
-				NvimTree = true,
-			},
+	},
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-telescope/telescope.nvim", -- optional
 		},
+		config = true,
+	},
+	{
+		"akinsho/toggleterm.nvim",
+		event = "WinEnter",
+		config = function()
+			local size = vim.api.nvim_get_option_value("columns", {}) * 0.35
+			-- if vim.g.neovide then
+			-- 	size = 100
+			-- end
+
+			require("toggleterm").setup({
+				size = size,
+				open_mapping = [[<C-j>]],
+				autochdir = true,
+				direction = "vertical",
+				shade_terminals = false,
+				persist_size = true,
+			})
+		end,
 	},
 	{
 		"nvimdev/dashboard-nvim",
