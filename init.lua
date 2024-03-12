@@ -20,6 +20,25 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
+-- Tab settings
+vim.o.tabstop = 4 -- \t renders as 4 spaces
+vim.o.expandtab = true -- Pressing Tab will insert spaces instead of \t
+vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
+
+local set_file_tab_width = function(pattern, width)
+	vim.api.nvim_create_autocmd({ "BufEnter" }, {
+		pattern = pattern,
+		callback = function()
+			vim.opt_local.shiftwidth = width
+			vim.opt_local.tabstop = width
+		end,
+	})
+end
+
+set_file_tab_width("*.html", 2)
+set_file_tab_width("*.vue", 2)
+set_file_tab_width("*.lua", 2)
+
 -- Automatically toggle between absolute and hybrid line numbers
 local number_toggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
@@ -135,7 +154,6 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-	{ "numToStr/Comment.nvim", opts = {} },
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
@@ -162,6 +180,7 @@ require("lazy").setup({
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
 				["<leader>t"] = { name = "nvim-[T]ree/[T]erminal", _ = "which_key_ignore" },
 				["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
+				["<leader>p"] = { name = "[P]ossession", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -225,7 +244,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+			vim.keymap.set("n", "<leader>st", builtin.builtin, { desc = "[S]earch Select [T]elescope" })
 			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
@@ -736,7 +755,13 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			require("nvim-tree").setup({})
+			require("nvim-tree").setup({
+				actions = {
+					change_dir = {
+						global = true,
+					},
+				},
+			})
 			local api = require("nvim-tree.api")
 			vim.keymap.set("n", "<leader>to", api.tree.open, { desc = "Open nvim-tree" })
 			vim.keymap.set("n", "<leader>tc", api.tree.close, { desc = "Close nvim-tree" })
@@ -750,7 +775,11 @@ require("lazy").setup({
 		config = function()
 			require("copilot").setup({
 				suggestion = {
-					auto_trigger = false,
+					auto_trigger = true,
+					keymap = {
+						accept = "<C-c>a",
+						dismiss = "<C-c>d",
+					},
 				},
 			})
 		end,
@@ -784,6 +813,12 @@ require("lazy").setup({
 				"<leader>bc",
 				"<Cmd>BufferClose<CR>",
 				{ noremap = true, silent = true, desc = "Close tab" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>bd",
+				"<Cmd>BufferDelete<CR>",
+				{ noremap = true, silent = true, desc = "Delete tab" }
 			)
 
 			require("barbar").setup({
@@ -822,8 +857,13 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
+		"startup-nvim/startup.nvim",
+		dependencies = {
+			"telescope-nvim/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		-- event = "VimEnter",
 		config = function()
 			local header = {}
 			if vim.g.neovide then
@@ -849,10 +889,70 @@ require("lazy").setup({
 					"",
 				}
 			end
-			require("dashboard").setup({
-				config = {
-					header = header,
+			require("startup").setup({
+				header = {
+					type = "text",
+					oldfiles_directory = false,
+					align = "center",
+					fold_section = false,
+					title = "Header",
+					margin = 5,
+					content = header,
+					highlight = "Statement",
+					default_color = "",
+					oldfiles_amount = 0,
 				},
+				-- name which will be displayed and command
+				body = {
+					type = "mapping",
+					oldfiles_directory = false,
+					align = "center",
+					fold_section = false,
+					title = "Basic Commands",
+					margin = 5,
+					content = {
+						{ "󱋡 Recent Files", "Telescope oldfiles", "<leader>s." },
+						{ "󰪺 Recent Sessions", "Telescope possession list", "<leader>ss" },
+						{ "󰱼 Search Files", "Telescope find_files", "<leader>sf" },
+						{ "󱎸 Search with Grep", "Telescope live_grep", "<leader>sg" },
+						{ "󰦅 Search Keymaps", "Telescope keymaps", "<leader>sk" },
+					},
+					highlight = "String",
+					default_color = "",
+					oldfiles_amount = 0,
+				},
+				footer = {
+					type = "text",
+					oldfiles_directory = false,
+					align = "center",
+					fold_section = false,
+					title = "Footer",
+					margin = 5,
+					content = { "startup.nvim" },
+					highlight = "Number",
+					default_color = "",
+					oldfiles_amount = 0,
+				},
+
+				options = {
+					mapping_keys = true,
+					cursor_column = 0.5,
+					empty_lines_between_mappings = true,
+					disable_statuslines = true,
+					paddings = { 1, 3, 3, 0 },
+				},
+				mappings = {
+					execute_command = "<CR>",
+					open_file = "o",
+					open_file_split = "<c-o>",
+					open_section = "<TAB>",
+					open_help = "?",
+				},
+				colors = {
+					background = "#1f2227",
+					folded_section = "#56b6c2",
+				},
+				parts = { "header", "body", "footer" },
 			})
 			vim.api.nvim_create_autocmd({ "BufLeave" }, {
 				callback = function()
@@ -861,9 +961,37 @@ require("lazy").setup({
 				group = number_toggle,
 			})
 		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	},
+	{
+		"jedrzejboczar/possession.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("possession").setup({})
+			require("telescope").load_extension("possession")
+			local save_session = function()
+				local session_name = require("possession.session").session_name or vim.fn.input("Session name: ")
+				if session_name ~= "" then
+					require("possession.session").save(session_name)
+				end
+			end
+			local delete_session = function()
+				local session_name = require("possession.session").session_name or ""
+				if session_name ~= "" then
+					require("possession.session").delete(session_name)
+				end
+			end
+
+			vim.keymap.set(
+				"n",
+				"<leader>ss",
+				require("telescope").extensions.possession.list,
+				{ desc = "[S]earch [S]essions" }
+			)
+			vim.keymap.set("n", "<leader>pd", delete_session, { desc = "[P]ossession [D]elete" })
+			vim.keymap.set("n", "<leader>ps", save_session, { desc = "[P]ossession [S]ave" })
+		end,
 	},
 }, {})
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
