@@ -746,6 +746,13 @@ require("lazy").setup({
 						global = true,
 					},
 				},
+				renderer = {
+					icons = {
+						show = {
+							git = false,
+						},
+					},
+				},
 			})
 			local api = require("nvim-tree.api")
 			vim.keymap.set("n", "<leader>to", api.tree.open, { desc = "Open nvim-tree" })
@@ -868,7 +875,7 @@ require("lazy").setup({
 
 			require("toggleterm").setup({
 				size = size,
-				open_mapping = [[<C-j>]],
+				open_mapping = [[<C-m>]],
 				autochdir = true,
 				direction = "vertical",
 				shade_terminals = false,
