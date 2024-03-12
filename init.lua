@@ -875,7 +875,7 @@ require("lazy").setup({
 
 			require("toggleterm").setup({
 				size = size,
-				open_mapping = [[<C-m>]],
+				open_mapping = [[<C-.>]],
 				autochdir = true,
 				direction = "vertical",
 				shade_terminals = false,
