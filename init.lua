@@ -378,11 +378,17 @@ require("lazy").setup({
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+			local on_attach = function(client, buffer_no)
+				if client.server_capabilities.inlayHintProvider then
+					vim.lsp.inlay_hint.enable(buffer_no, true)
+				end
+			end
+
 			-- Language servers managed by the system
 			local servers = {
-				-- gopls = {},
 				-- pyright = {},
 				clangd = {},
+				gopls = {},
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -403,6 +409,8 @@ require("lazy").setup({
 			}
 
 			for server_name, server in pairs(servers) do
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				server.on_attach = on_attach
 				require("lspconfig")[server_name].setup(server)
 			end
 
@@ -460,6 +468,7 @@ require("lazy").setup({
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						server.on_attach = on_attach
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
@@ -746,12 +755,23 @@ require("lazy").setup({
 						global = true,
 					},
 				},
+				diagnostics = {
+					enable = true,
+					show_on_dirs = true,
+					show_on_open_dirs = false,
+				},
+				git = {
+					enable = false,
+				},
 				renderer = {
 					icons = {
 						show = {
 							git = false,
 						},
 					},
+				},
+				view = {
+					width = 40,
 				},
 			})
 			local api = require("nvim-tree.api")
@@ -1020,5 +1040,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>pd", delete_session, { desc = "[P]ossession [D]elete" })
 			vim.keymap.set("n", "<leader>ps", save_session, { desc = "[P]ossession [S]ave" })
 		end,
+	},
+	{
+		"https://git.sr.ht/~nedia/auto-save.nvim",
+		opts = {
+			events = { "InsertLeave", "TextChanged", "BufLeave" },
+			exclude_ft = { "NVimTree", "ToggleTerm" },
+		},
 	},
 }, {})
