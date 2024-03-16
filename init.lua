@@ -38,6 +38,7 @@ end
 set_file_tab_width("*.html", 2)
 set_file_tab_width("*.vue", 2)
 set_file_tab_width("*.lua", 2)
+set_file_tab_width("CMakeLists.txt", 2)
 
 -- Automatically toggle between absolute and hybrid line numbers
 local number_toggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
@@ -387,7 +388,24 @@ require("lazy").setup({
 			-- Language servers managed by the system
 			local servers = {
 				-- pyright = {},
-				clangd = {},
+				clangd = {
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--suggest-missing-includes",
+						"--clang-tidy",
+						"--cross-file-rename",
+						"--header-insertion=iwyu",
+						"--completion-style=bundled",
+						"--fallback-style=Microsoft",
+					},
+					init_options = {
+						clangdFileStatus = true,
+						usePlaceholders = true,
+						completeUnimported = true,
+						semanticHighlighting = true,
+					},
+				},
 				gopls = {},
 				rust_analyzer = {
 					settings = {
@@ -416,6 +434,8 @@ require("lazy").setup({
 
 			-- Language servers managed by mason
 			local mason_servers = {
+				cmake = {}, -- lsp
+				cmakelang = {}, -- formatter
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
@@ -895,7 +915,7 @@ require("lazy").setup({
 
 			require("toggleterm").setup({
 				size = size,
-				open_mapping = [[<C-.>]],
+				open_mapping = [[<leader>tj]],
 				autochdir = true,
 				direction = "vertical",
 				shade_terminals = false,
