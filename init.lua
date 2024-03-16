@@ -144,6 +144,44 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- [[ Basic code commands ]]
+local build_code = function()
+	local filetype = vim.bo.filetype
+	if filetype == "rust" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='cargo build'")
+	elseif filetype == "zig" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='zig build'")
+	end
+end
+
+local run_code = function()
+	local filetype = vim.bo.filetype
+	if filetype == "rust" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='cargo run'")
+	elseif filetype == "zig" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='zig build run'")
+	end
+end
+
+local test_code = function()
+	local filetype = vim.bo.filetype
+	if filetype == "rust" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='cargo test'")
+	elseif filetype == "zig" then
+		vim.cmd("w")
+		vim.cmd("1TermExec cmd='zig build test'")
+	end
+end
+
+vim.keymap.set("n", "<leader>xb", build_code, { desc = "[B]uild code" })
+vim.keymap.set("n", "<leader>xr", run_code, { desc = "[R]un code" })
+vim.keymap.set("n", "<leader>xt", test_code, { desc = "[T]est code" })
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -182,6 +220,7 @@ require("lazy").setup({
 				["<leader>t"] = { name = "nvim-[T]ree/[T]erminal", _ = "which_key_ignore" },
 				["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
 				["<leader>p"] = { name = "[P]ossession", _ = "which_key_ignore" },
+				["<leader>x"] = { name = "Code E[X]ecution", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -790,6 +829,7 @@ require("lazy").setup({
 						},
 					},
 				},
+				sync_root_with_cwd = true,
 				view = {
 					width = 40,
 				},
@@ -1037,7 +1077,31 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			require("possession").setup({})
+			require("possession").setup({
+				hooks = {
+					-- before_save = function()
+					-- 	local windows = vim.api.nvim_list_wins()
+					-- 	for _, win in ipairs(windows) do
+					-- 		local buf = vim.api.nvim_win_get_buf(win)
+					-- 		if string.find(vim.api.nvim_buf_get_name(buf), "toggleterm") ~= nil then
+					-- 			vim.api.nvim_win_close(win, true)
+					-- 		end
+					-- 	end
+					--
+					-- 	return {}
+					-- end,
+					before_load = function()
+						local bufs = vim.api.nvim_list_bufs()
+						for _, buf in ipairs(bufs) do
+							if string.find(vim.api.nvim_buf_get_name(buf), "toggleterm") ~= nil then
+								vim.api.nvim_buf_delete(buf, { force = true })
+							end
+						end
+
+						return {}
+					end,
+				},
+			})
 			require("telescope").load_extension("possession")
 			local save_session = function()
 				local session_name = require("possession.session").session_name or vim.fn.input("Session name: ")
