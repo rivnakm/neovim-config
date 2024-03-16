@@ -916,6 +916,7 @@ require("lazy").setup({
 			require("toggleterm").setup({
 				size = size,
 				open_mapping = [[<leader>tj]],
+				insert_mappings = false,
 				autochdir = true,
 				direction = "vertical",
 				shade_terminals = false,
