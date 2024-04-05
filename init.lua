@@ -2,6 +2,13 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Neovide settings
+local padding = 3
+vim.g.neovide_padding_top = padding
+vim.g.neovide_padding_bottom = padding
+vim.g.neovide_padding_right = padding
+vim.g.neovide_padding_left = padding
+
 -- Enable 24-bit color
 vim.opt.termguicolors = true
 
@@ -9,6 +16,9 @@ vim.opt.termguicolors = true
 -- See `:help mapleader`
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Disable mouse
+vim.opt.mouse = ""
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
@@ -60,9 +70,6 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 	end,
 	group = number_toggle,
 })
-
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -127,7 +134,6 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
--- TODO: might be different with nvim-toggleterm
 
 -- Keybinds to make split navigation easier.
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
@@ -143,6 +149,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- [[ Format Command ]]
+vim.api.nvim_create_user_command("Format", function(args)
+	local range = nil
+	if args.count ~= -1 then
+		local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+		range = {
+			start = { args.line1, 0 },
+			["end"] = { args.line2, end_line:len() },
+		}
+	end
+	require("conform").format({ async = true, lsp_fallback = true, range = range })
+end, { range = true })
+vim.keymap.set("n", "<leader>cf", "<Cmd>Format<CR>", { desc = "[C]ode [F]ormat" })
 
 -- [[ Basic code commands ]]
 local build_code = function()
@@ -426,7 +446,7 @@ require("lazy").setup({
 
 			-- Language servers managed by the system
 			local servers = {
-				-- pyright = {},
+				pyright = {},
 				clangd = {
 					cmd = {
 						"clangd",
@@ -475,6 +495,7 @@ require("lazy").setup({
 			local mason_servers = {
 				cmake = {}, -- lsp
 				cmakelang = {}, -- formatter
+				fsautocomplete = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
@@ -805,7 +826,30 @@ require("lazy").setup({
 		"nvim-tree/nvim-tree.lua",
 		lazy = false,
 		dependencies = {
-			"nvim-tree/nvim-web-devicons",
+			{
+				"nvim-tree/nvim-web-devicons",
+				opts = {
+					override_by_filename = {
+						["go.mod"] = {
+							icon = "󰟓",
+							color = "#CE3262",
+							name = "Go_Module",
+						},
+						["go.work"] = {
+							icon = "󰟓",
+							color = "#FDDD00",
+							name = "Go_Workspace",
+						},
+					},
+					override_by_extension = {
+						["go"] = {
+							icon = "󰟓",
+							color = "#00ADD8",
+							name = "Go",
+						},
+					},
+				},
+			},
 		},
 		config = function()
 			require("nvim-tree").setup({
@@ -955,13 +999,21 @@ require("lazy").setup({
 
 			require("toggleterm").setup({
 				size = size,
-				open_mapping = [[<leader>tj]],
+				-- open_mapping = [[<leader>tj]],
 				insert_mappings = false,
 				autochdir = true,
 				direction = "vertical",
 				shade_terminals = false,
 				persist_size = true,
 			})
+
+			-- setting this in the toggleterm config doesn't work properly with using space as a leader key
+			vim.keymap.set(
+				"n",
+				"<leader>tj",
+				"<Cmd>ToggleTerm<CR>",
+				{ noremap = true, silent = true, desc = "Toggle terminal" }
+			)
 		end,
 	},
 	{
@@ -1129,8 +1181,17 @@ require("lazy").setup({
 	{
 		"https://git.sr.ht/~nedia/auto-save.nvim",
 		opts = {
-			events = { "InsertLeave", "TextChanged", "BufLeave" },
+			events = { "InsertLeave", "BufLeave" },
 			exclude_ft = { "NVimTree", "ToggleTerm" },
 		},
 	},
+	{
+		"Aasim-A/scrollEOF.nvim",
+		event = { "CursorMoved", "WinScrolled" },
+		opts = {},
+	},
+	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+	{ "brenoprata10/nvim-highlight-colors", opts = {
+		enable_tailwind = true,
+	} },
 }, {})
