@@ -1179,13 +1179,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"https://git.sr.ht/~nedia/auto-save.nvim",
-		opts = {
-			events = { "InsertLeave", "BufLeave" },
-			exclude_ft = { "NVimTree", "ToggleTerm" },
-		},
-	},
-	{
 		"Aasim-A/scrollEOF.nvim",
 		event = { "CursorMoved", "WinScrolled" },
 		opts = {},
