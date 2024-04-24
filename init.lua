@@ -446,7 +446,6 @@ require("lazy").setup({
 
 			-- Language servers managed by the system
 			local servers = {
-				pyright = {},
 				clangd = {
 					cmd = {
 						"clangd",
@@ -522,6 +521,7 @@ require("lazy").setup({
 						},
 					},
 				},
+				pyright = {},
 			}
 
 			-- Ensure the servers and tools above are installed
