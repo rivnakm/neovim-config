@@ -842,6 +842,11 @@ require("lazy").setup({
 						},
 					},
 					override_by_extension = {
+						["ebuild"] = {
+							icon = "󰣨",
+							color = "#4E4187",
+							name = "Ebuild",
+						},
 						["go"] = {
 							icon = "󰟓",
 							color = "#00ADD8",
