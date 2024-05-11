@@ -440,7 +440,7 @@ require("lazy").setup({
 
 			local on_attach = function(client, buffer_no)
 				if client.server_capabilities.inlayHintProvider then
-					vim.lsp.inlay_hint.enable(buffer_no, true)
+					vim.lsp.inlay_hint.enable(true, { bufnr = buffer_no })
 				end
 			end
 
@@ -495,6 +495,7 @@ require("lazy").setup({
 				cmake = {}, -- lsp
 				cmakelang = {}, -- formatter
 				fsautocomplete = {},
+				jsonls = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
