@@ -239,7 +239,8 @@ require("lazy").setup({
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
 				["<leader>t"] = { name = "nvim-[T]ree/[T]erminal", _ = "which_key_ignore" },
 				["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
-				["<leader>p"] = { name = "[P]ossession", _ = "which_key_ignore" },
+				["<leader>o"] = { name = "P[o]ssession", _ = "which_key_ignore" },
+				["<leader>p"] = { name = "[P]eek", _ = "which_key_ignore" },
 				["<leader>x"] = { name = "Code E[X]ecution", _ = "which_key_ignore" },
 			})
 		end,
@@ -403,13 +404,15 @@ require("lazy").setup({
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-					-- Opens a popup that displays documentation about the word under your cursor
-					--  See `:help K` for why this keymap
-					map("K", vim.lsp.buf.hover, "Hover Documentation")
-
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+					-- Peek definition in a floating window
+					map("<leader>pd", vim.lsp.buf.hover, "[P]eek [D]efinition")
+
+					-- Peek signature in a floating window
+					map("<leader>ps", vim.lsp.buf.signature_help, "[P]eek [S]ignature")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
@@ -464,6 +467,8 @@ require("lazy").setup({
 						semanticHighlighting = true,
 					},
 				},
+				csharp_ls = {},
+				fsautocomplete = {},
 				gopls = {},
 				rust_analyzer = {
 					settings = {
@@ -492,14 +497,12 @@ require("lazy").setup({
 
 			-- Language servers managed by mason
 			local mason_servers = {
+				bashls = {},
 				cmake = {}, -- lsp
 				cmakelang = {}, -- formatter
-				fsautocomplete = {},
+				cssls = {},
 				jsonls = {},
 				lua_ls = {
-					-- cmd = {...},
-					-- filetypes { ...},
-					-- capabilities = {},
 					settings = {
 						Lua = {
 							runtime = { version = "LuaJIT" },
@@ -522,6 +525,8 @@ require("lazy").setup({
 						},
 					},
 				},
+				markuplint = {},
+				ocamllsp = {},
 				pyright = {},
 			}
 
@@ -668,6 +673,12 @@ require("lazy").setup({
 				},
 			})
 		end,
+	},
+
+	-- nvim-dap
+	{
+		"mfussenegger/nvim-dap",
+		config = function() end,
 	},
 
 	-- Colorschemes
@@ -1183,8 +1194,8 @@ require("lazy").setup({
 				require("telescope").extensions.possession.list,
 				{ desc = "[S]earch [S]essions" }
 			)
-			vim.keymap.set("n", "<leader>pd", delete_session, { desc = "[P]ossession [D]elete" })
-			vim.keymap.set("n", "<leader>ps", save_session, { desc = "[P]ossession [S]ave" })
+			vim.keymap.set("n", "<leader>od", delete_session, { desc = "P[o]ssession [D]elete" })
+			vim.keymap.set("n", "<leader>os", save_session, { desc = "P[o]ssession [S]ave" })
 		end,
 	},
 	{
