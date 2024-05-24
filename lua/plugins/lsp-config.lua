@@ -133,14 +133,21 @@ return {
 			pyright = {},
 			stylua = {},
 			tsserver = {
-				capabilities = {
-					textDocument = {
-						completion = {
-							completionItem = {
-								snippetSupport = true,
-							},
-						},
+				init_options = {
+					preferences = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+						importModuleSpecifierPreference = "non-relative",
 					},
+				},
+				filetypes = {
+					"javascript",
+					"typescript",
 				},
 			},
 		}

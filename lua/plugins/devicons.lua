@@ -39,6 +39,11 @@ return {
 				color = "#00ADD8",
 				name = "Go",
 			},
+			["js"] = {
+				icon = "󰌞",
+				color = "#F7DF1E",
+				name = "Javascript",
+			},
 			["rs"] = {
 				icon = "",
 				color = "#FF4300",
