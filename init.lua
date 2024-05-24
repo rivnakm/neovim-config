@@ -219,6 +219,7 @@ require("lazy").setup({
 
 	-- Debugging
 	require("plugins.dap"),
+	require("plugins.dap-ui"),
 
 	-- Completion and Snippets
 	require("plugins.completion"),
