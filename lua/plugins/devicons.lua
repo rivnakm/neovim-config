@@ -21,12 +21,12 @@ return {
 		override_by_extension = {
 			["cs"] = {
 				icon = "󰌛",
-				color = "#4300C0",
+				color = "#5128D4",
 				name = "Csharp",
 			},
 			["csproj"] = {
 				icon = "󰌛",
-				color = "#CCCCCC",
+				color = "#DFD8F7",
 				name = "Csharp_Project",
 			},
 			["ebuild"] = {
@@ -51,7 +51,7 @@ return {
 			},
 			["sln"] = {
 				icon = "󰘐",
-				color = "#4300C0",
+				color = "#5128D4",
 				name = "Visualstudio_Solution",
 			},
 			["ts"] = {
