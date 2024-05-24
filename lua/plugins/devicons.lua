@@ -49,6 +49,11 @@ return {
 				color = "#4300C0",
 				name = "Visualstudio_Solution",
 			},
+			["ts"] = {
+				icon = "",
+				color = "#3178C6",
+				name = "Typescript",
+			},
 		},
 	},
 }
