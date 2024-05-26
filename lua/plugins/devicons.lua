@@ -45,7 +45,7 @@ return {
 				name = "Javascript",
 			},
 			["rs"] = {
-				icon = "",
+				icon = "󱘗",
 				color = "#FF4300",
 				name = "Rust",
 			},
@@ -55,7 +55,7 @@ return {
 				name = "Visualstudio_Solution",
 			},
 			["ts"] = {
-				icon = "",
+				icon = "󰛦",
 				color = "#3178C6",
 				name = "Typescript",
 			},
