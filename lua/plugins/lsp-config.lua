@@ -28,6 +28,7 @@ return {
 				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 				map("<leader>rr", vim.lsp.buf.rename, "[R]e[n]ame")
+				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 				map("<leader>pd", vim.lsp.buf.hover, "[P]eek [D]efinition")
 				map("<leader>ps", vim.lsp.buf.signature_help, "[P]eek [S]ignature")
