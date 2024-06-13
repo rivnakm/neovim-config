@@ -165,7 +165,7 @@ end, { range = true })
 vim.keymap.set("n", "<leader>cf", "<Cmd>Format<CR>", { desc = "[C]ode [F]ormat" })
 
 -- [[ Windows shell setup ]]
-if vim.nf.has('win32') then
+if vim.fn.has('win32') then
 	-- Use powershell 7
 	vim.opt.shell = "pwsh"
 	vim.opt.shellcmdflag =
