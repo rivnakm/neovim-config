@@ -14,7 +14,6 @@ return {
 			["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
 			["<leader>o"] = { name = "P[o]ssession", _ = "which_key_ignore" },
 			["<leader>p"] = { name = "[P]eek", _ = "which_key_ignore" },
-			["<leader>x"] = { name = "Code E[X]ecution", _ = "which_key_ignore" },
 		})
 	end,
 }

@@ -164,43 +164,16 @@ vim.api.nvim_create_user_command("Format", function(args)
 end, { range = true })
 vim.keymap.set("n", "<leader>cf", "<Cmd>Format<CR>", { desc = "[C]ode [F]ormat" })
 
--- [[ Basic code commands ]]
-local build_code = function()
-	local filetype = vim.bo.filetype
-	if filetype == "rust" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='cargo build'")
-	elseif filetype == "zig" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='zig build'")
-	end
+-- [[ Windows shell setup ]]
+if vim.nf.has('win32') then
+	-- Use powershell 7
+	vim.opt.shell = "pwsh"
+	vim.opt.shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+	vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+	vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	vim.opt.shellquote = ""
 end
-
-local run_code = function()
-	local filetype = vim.bo.filetype
-	if filetype == "rust" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='cargo run'")
-	elseif filetype == "zig" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='zig build run'")
-	end
-end
-
-local test_code = function()
-	local filetype = vim.bo.filetype
-	if filetype == "rust" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='cargo test'")
-	elseif filetype == "zig" then
-		vim.cmd("w")
-		vim.cmd("1TermExec cmd='zig build test'")
-	end
-end
-
-vim.keymap.set("n", "<leader>xb", build_code, { desc = "[B]uild code" })
-vim.keymap.set("n", "<leader>xr", run_code, { desc = "[R]un code" })
-vim.keymap.set("n", "<leader>xt", test_code, { desc = "[T]est code" })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
