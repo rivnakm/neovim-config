@@ -173,6 +173,7 @@ if vim.fn.has('win32') then
 	vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
 	vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 	vim.opt.shellquote = ""
+	vim.opt.shellxquote = ""
 end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
