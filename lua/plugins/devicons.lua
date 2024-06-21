@@ -13,7 +13,7 @@ return {
 				name = "Go_Workspace",
 			},
 			["Cargo.toml"] = {
-				icon = "",
+				icon = "󱘗",
 				color = "#CCCCCC",
 				name = "Cargo_Manifest",
 			},

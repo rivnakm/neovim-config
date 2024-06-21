@@ -48,6 +48,8 @@ end
 set_file_tab_width("*.html", 2)
 set_file_tab_width("*.vue", 2)
 set_file_tab_width("*.lua", 2)
+set_file_tab_width("*.hpp", 4) -- vim-sleuth gets confused with my clang-format settings
+set_file_tab_width("*.cpp", 4)
 set_file_tab_width("CMakeLists.txt", 2)
 
 -- Automatically toggle between absolute and hybrid line numbers
@@ -165,7 +167,7 @@ end, { range = true })
 vim.keymap.set("n", "<leader>cf", "<Cmd>Format<CR>", { desc = "[C]ode [F]ormat" })
 
 -- [[ Windows shell setup ]]
-if vim.fn.has('win32') then
+if vim.fn.has("win32") == 1 then
 	-- Use powershell 7
 	vim.opt.shell = "pwsh"
 	vim.opt.shellcmdflag =
