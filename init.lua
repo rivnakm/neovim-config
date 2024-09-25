@@ -18,7 +18,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Disable mouse
-vim.opt.mouse = ""
+-- vim.opt.mouse = ""
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
@@ -50,6 +50,7 @@ set_file_tab_width("*.vue", 2)
 set_file_tab_width("*.lua", 2)
 set_file_tab_width("*.hpp", 4) -- vim-sleuth gets confused with my clang-format settings
 set_file_tab_width("*.cpp", 4)
+set_file_tab_width("*.java", 4) -- jdt.ls is weird
 set_file_tab_width("CMakeLists.txt", 2)
 
 -- Automatically toggle between absolute and hybrid line numbers

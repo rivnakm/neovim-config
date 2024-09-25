@@ -155,12 +155,23 @@ return {
 						includeInlayEnumMemberValueHints = true,
 						importModuleSpecifierPreference = "non-relative",
 					},
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
+							languages = {
+								"vue",
+							},
+						},
+					},
 				},
 				filetypes = {
 					"javascript",
 					"typescript",
+					"vue",
 				},
 			},
+			volar = {},
 		}
 
 		require("mason").setup()

@@ -25,6 +25,8 @@ return {
 						git = false,
 					},
 				},
+				special_files = {},
+				symlink_destination = false,
 			},
 			sync_root_with_cwd = true,
 			view = {

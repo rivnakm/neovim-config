@@ -96,10 +96,5 @@ return {
 			},
 			parts = { "header", "body", "footer" },
 		})
-		vim.api.nvim_create_autocmd({ "BufLeave" }, {
-			callback = function()
-				vim.api.nvim_set_option_value("showtabline", 2, {})
-			end,
-		})
 	end,
 }
