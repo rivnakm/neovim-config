@@ -210,6 +210,7 @@ require("lazy").setup({
 	require("plugins.barbar"),
 	require("plugins.neogit"),
 	require("plugins.toggleterm"),
+	require("plugins.scrollbar"),
 	require("plugins.scrollEOF"),
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
