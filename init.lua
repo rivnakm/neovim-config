@@ -219,6 +219,7 @@ require("lazy").setup({
 	require("plugins.telescope"),
 	require("plugins.todo-comments"),
 	require("plugins.mini"),
+	require("plugins.ufo"),
 
 	-- Icons
 	require("plugins.devicons"),

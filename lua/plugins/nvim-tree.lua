@@ -21,6 +21,12 @@ return {
 			},
 			renderer = {
 				icons = {
+					glyphs = {
+						folder = {
+							arrow_closed = "",
+							arrow_open = "",
+						},
+					},
 					show = {
 						git = false,
 					},
