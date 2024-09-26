@@ -184,6 +184,7 @@ require("lazy").setup({
 	require("plugins.lsp-config"),
 	require("plugins.treesitter"),
 	require("plugins.conform"),
+	require("plugins.lsp-lines"),
 
 	-- Debugging
 	require("plugins.dap"),
