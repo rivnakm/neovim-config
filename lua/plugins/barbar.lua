@@ -9,22 +9,22 @@ return {
 	end,
 	event = "BufEnter",
 	config = function()
-		vim.keymap.set("n", "<leader>bj", "<Cmd>BufferNext<CR>", { noremap = true, silent = true, desc = "Next tab" })
+		vim.keymap.set("n", "<leader>bl", "<Cmd>BufferNext<CR>", { noremap = true, silent = true, desc = "Next tab" })
 		vim.keymap.set(
 			"n",
-			"<leader>bf",
+			"<leader>bh",
 			"<Cmd>BufferPrevious<CR>",
 			{ noremap = true, silent = true, desc = "Previous tab" }
 		)
 		vim.keymap.set(
 			"n",
-			"<leader>bmj",
+			"<leader>bml",
 			"<Cmd>BufferMoveNext<CR>",
 			{ noremap = true, silent = true, desc = "Move tab right" }
 		)
 		vim.keymap.set(
 			"n",
-			"<leader>bmf",
+			"<leader>bmh",
 			"<Cmd>BufferMovePrevious<CR>",
 			{ noremap = true, silent = true, desc = "Move tab left" }
 		)
