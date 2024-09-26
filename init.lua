@@ -183,6 +183,7 @@ require("lazy").setup({
 	-- Language Servers, Highlighting, Formatting
 	require("plugins.lsp-config"),
 	require("plugins.treesitter"),
+	---@diagnostic disable-next-line: different-requires
 	require("plugins.conform"),
 	require("plugins.lsp-lines"),
 
@@ -206,6 +207,7 @@ require("lazy").setup({
 	require("plugins.scrollEOF"),
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
+	require("plugins.dressing"),
 
 	-- Usability
 	require("plugins.autopairs"),
