@@ -207,6 +207,7 @@ require("lazy").setup({
 	require("plugins.highlight-color"),
 
 	-- Usability
+	require("plugins.autopairs"),
 	require("plugins.cutlass"),
 	require("plugins.substitute"),
 	require("plugins.yanky"),
