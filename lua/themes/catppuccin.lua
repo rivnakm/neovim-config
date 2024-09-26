@@ -18,6 +18,8 @@ return {
 					return {
 						NeogitDiffContextHighlight = { bg = "#272734" },
 						NeogitCursorLine = { bg = "#272734" },
+						YankyPut = { bg = "#CDD6F4", fg = "#141417" },
+						YankyYanked = { bg = "#CDD6F4", fg = "#141417" },
 					}
 				end,
 			},
