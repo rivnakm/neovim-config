@@ -53,6 +53,14 @@ set_file_tab_width("*.cpp", 4)
 set_file_tab_width("*.java", 4) -- jdt.ls is weird
 set_file_tab_width("CMakeLists.txt", 2)
 
+-- Custom filetypes
+vim.filetype.add({
+	extension = {
+		xaml = "xaml",
+		axaml = "xaml",
+	},
+})
+
 -- Automatically toggle between absolute and hybrid line numbers
 local number_toggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
