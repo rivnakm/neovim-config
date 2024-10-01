@@ -57,6 +57,9 @@ return {
 			lineFoldingOnly = true,
 		}
 
+		-- make sure registration is available when on_attach runs
+		capabilities.textDocument.inlayHint.dynamicRegistration = false
+
 		local on_attach = function(client, buffer_no)
 			if client.server_capabilities.inlayHintProvider then
 				vim.lsp.inlay_hint.enable(true, { bufnr = buffer_no })
