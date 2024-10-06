@@ -152,7 +152,7 @@ return {
 			prettierd = {},
 			pyright = {},
 			stylua = {},
-			tsserver = {
+			ts_ls = {
 				init_options = {
 					preferences = {
 						includeInlayParameterNameHints = "all",
