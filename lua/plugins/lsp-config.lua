@@ -100,6 +100,7 @@ return {
 				},
 			},
 			ocamllsp = {},
+			pyright = {},
 			rust_analyzer = {
 				settings = {
 					["rust-analyzer"] = {
@@ -107,6 +108,34 @@ return {
 							command = "clippy",
 						},
 					},
+				},
+			},
+			ts_ls = {
+				init_options = {
+					preferences = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+						importModuleSpecifierPreference = "non-relative",
+					},
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
+							languages = {
+								"vue",
+							},
+						},
+					},
+				},
+				filetypes = {
+					"javascript",
+					"typescript",
+					"vue",
 				},
 			},
 			zls = {},
@@ -150,36 +179,7 @@ return {
 			},
 			markuplint = {},
 			prettierd = {},
-			pyright = {},
 			stylua = {},
-			ts_ls = {
-				init_options = {
-					preferences = {
-						includeInlayParameterNameHints = "all",
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayVariableTypeHints = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayEnumMemberValueHints = true,
-						importModuleSpecifierPreference = "non-relative",
-					},
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
-							languages = {
-								"vue",
-							},
-						},
-					},
-				},
-				filetypes = {
-					"javascript",
-					"typescript",
-					"vue",
-				},
-			},
 			volar = {},
 		}
 
