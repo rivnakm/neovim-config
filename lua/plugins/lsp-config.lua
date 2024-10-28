@@ -138,7 +138,14 @@ return {
 					"vue",
 				},
 			},
-			zls = {},
+			zls = {
+				settings = {
+					zls = {
+						enable_build_on_save = true,
+						build_on_save_step = "check",
+					},
+				},
+			},
 		}
 
 		for server_name, server in pairs(servers) do
@@ -201,5 +208,9 @@ return {
 				end,
 			},
 		})
+
+		-- Stop ZLS from showing errors in a separate buffer
+		-- https://github.com/zigtools/zls/issues/856#issuecomment-1511528925
+		vim.g.zig_fmt_parse_errors = 0
 	end,
 }
