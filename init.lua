@@ -59,6 +59,9 @@ vim.filetype.add({
 		xaml = "xaml",
 		axaml = "xaml",
 	},
+	filename = {
+		["Directory.Packages.props"] = "xml",
+	},
 })
 
 -- Automatically toggle between absolute and hybrid line numbers

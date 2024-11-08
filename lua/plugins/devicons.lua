@@ -26,7 +26,7 @@ return {
 			},
 			["csproj"] = {
 				icon = "󰌛",
-				color = "#DFD8F7",
+				color = "#9780E5",
 				name = "Csharp_Project",
 			},
 			["ebuild"] = {
