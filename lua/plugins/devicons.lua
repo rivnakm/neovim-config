@@ -2,6 +2,16 @@ return {
 	"nvim-tree/nvim-web-devicons",
 	opts = {
 		override_by_filename = {
+			["Cargo.toml"] = {
+				icon = "󱘗",
+				color = "#CCCCCC",
+				name = "Cargo_Manifest",
+			},
+			["Directory.Packages.props"] = {
+				icon = "󰘐",
+				color = "#5128D4",
+				name = "Dotnet_Packages",
+			},
 			["go.mod"] = {
 				icon = "󰟓",
 				color = "#CE3262",
@@ -11,11 +21,6 @@ return {
 				icon = "󰟓",
 				color = "#FDDD00",
 				name = "Go_Workspace",
-			},
-			["Cargo.toml"] = {
-				icon = "󱘗",
-				color = "#CCCCCC",
-				name = "Cargo_Manifest",
 			},
 		},
 		override_by_extension = {
