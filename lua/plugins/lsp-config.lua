@@ -86,6 +86,7 @@ return {
 					semanticHighlighting = true,
 				},
 			},
+			cmake = {}, -- lsp
 			csharp_ls = {},
 			fsautocomplete = {},
 			gopls = {
@@ -160,8 +161,6 @@ return {
 		-- Language servers managed by mason
 		local mason_servers = {
 			bashls = {},
-			cmake = {}, -- lsp
-			cmakelang = {}, -- formatter
 			cssls = {},
 			jsonls = {},
 			lua_ls = {

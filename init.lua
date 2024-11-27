@@ -50,6 +50,8 @@ set_file_tab_width("*.vue", 2)
 set_file_tab_width("*.lua", 2)
 set_file_tab_width("*.hpp", 4) -- vim-sleuth gets confused with my clang-format settings
 set_file_tab_width("*.cpp", 4)
+set_file_tab_width("*.h", 4)
+set_file_tab_width("*.c", 4)
 set_file_tab_width("*.java", 4) -- jdt.ls is weird
 set_file_tab_width("CMakeLists.txt", 2)
 
