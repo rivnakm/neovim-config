@@ -221,6 +221,7 @@ require("lazy").setup({
 	require("plugins.highlight-color"),
 	require("plugins.dressing"),
 	require("plugins.notify"),
+	require("plugins.diffview"),
 
 	-- Usability
 	require("plugins.autopairs"),
