@@ -220,6 +220,7 @@ require("lazy").setup({
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
 	require("plugins.dressing"),
+	require("plugins.notify"),
 
 	-- Usability
 	require("plugins.autopairs"),

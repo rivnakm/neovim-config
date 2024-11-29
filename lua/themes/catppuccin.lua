@@ -25,12 +25,16 @@ return {
 			},
 			integrations = {
 				barbar = true,
-				dashboard = true,
-				neogit = true,
 				cmp = true,
 				dap = true,
 				dap_ui = true,
+				gitsigns = true,
+				mason = true,
+				neogit = true,
+				notify = true,
 				telescope = true,
+				ufo = true,
+				which_key = true,
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
