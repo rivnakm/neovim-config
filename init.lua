@@ -210,7 +210,6 @@ require("lazy").setup({
 
 	-- UI
 	require("plugins.git-signs"),
-	require("plugins.startup"),
 	require("plugins.nvim-tree"),
 	require("plugins.lualine"),
 	require("plugins.barbar"),
