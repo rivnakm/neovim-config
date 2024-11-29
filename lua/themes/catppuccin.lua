@@ -20,6 +20,8 @@ return {
 						NeogitCursorLine = { bg = "#272734" },
 						YankyPut = { bg = "#CDD6F4", fg = "#141417" },
 						YankyYanked = { bg = "#CDD6F4", fg = "#141417" },
+						BufferCurrentERROR = { bg = "#45475A", fg = "#F38BA8" },
+						BufferCurrentWarn = { bg = "#45475A", fg = "#F9E2AF" },
 					}
 				end,
 			},
