@@ -78,6 +78,7 @@ return {
 					"--header-insertion=iwyu",
 					"--completion-style=bundled",
 					"--fallback-style=Microsoft",
+					"--offset-encoding=utf-16",
 				},
 				init_options = {
 					clangdFileStatus = true,
