@@ -1,3 +1,4 @@
+-- Nicer looking notifications
 return {
 	"rcarriga/nvim-notify",
 	config = function()
@@ -10,6 +11,7 @@ return {
 				TRACE = "✎",
 			},
 			stages = "slide",
+			top_down = false,
 		})
 		vim.notify = require("notify")
 	end,

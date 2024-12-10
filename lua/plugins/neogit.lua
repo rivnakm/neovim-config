@@ -1,3 +1,4 @@
+-- Git UI
 return {
 	"NeogitOrg/neogit",
 	dependencies = {

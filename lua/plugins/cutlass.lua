@@ -1,3 +1,4 @@
+-- Better cut functionality
 return {
 	"gbprod/cutlass.nvim",
 	opts = {

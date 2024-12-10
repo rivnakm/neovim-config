@@ -1,3 +1,8 @@
-return { "brenoprata10/nvim-highlight-colors", opts = {
-	enable_tailwind = true,
-} }
+-- Highlight colors in code
+return {
+	"brenoprata10/nvim-highlight-colors",
+	jopts = {
+		enable_tailwind = true,
+		enable_named_colors = false,
+	},
+}

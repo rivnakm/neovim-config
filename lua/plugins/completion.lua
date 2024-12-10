@@ -1,3 +1,4 @@
+-- Tab bar
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
@@ -15,6 +16,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"windwp/nvim-autopairs",
+		"brenoprata10/nvim-highlight-colors",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -28,7 +30,9 @@ return {
 				end,
 			},
 			completion = { completeopt = "menu,menuone,noinsert" },
-
+			formatting = {
+				format = require("nvim-highlight-colors").format,
+			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-n>"] = cmp.mapping.select_next_item(),
 				["<C-p>"] = cmp.mapping.select_prev_item(),

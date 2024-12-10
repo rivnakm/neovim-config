@@ -1,3 +1,4 @@
+-- Improved syntax highlighting
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
@@ -5,6 +6,7 @@ return {
 		---@diagnostic disable-next-line: missing-fields
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
+				"asm",
 				"bash",
 				"c",
 				"c_sharp",
@@ -13,20 +15,28 @@ return {
 				"css",
 				"csv",
 				"dockerfile",
+				"doxygen",
+				"editorconfig",
+				"elixir",
+				"fsharp",
 				"gdscript",
 				"gitattributes",
 				"gitignore",
 				"go",
 				"gomod",
+				"haskell",
 				"html",
 				"javascript",
+				"jsdoc",
 				"json",
 				"json5",
 				"latex",
+				"llvm",
 				"lua",
 				"make",
 				"markdown",
 				"ocaml",
+				"powershell",
 				"python",
 				"ron",
 				"rust",
@@ -46,17 +56,5 @@ return {
 			highlight = { enable = true },
 			indent = { enable = true },
 		})
-
-		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-		parser_config.fsharp = {
-			install_info = {
-				url = "https://github.com/ionide/tree-sitter-fsharp",
-				branch = "main",
-				files = { "src/scanner.c", "src/parser.c" },
-				location = "fsharp",
-			},
-			requires_generate_from_grammar = false,
-			filetype = "fsharp",
-		}
 	end,
 }

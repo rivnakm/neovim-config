@@ -1,3 +1,4 @@
+-- Leetcode in neovim
 return {
 	"kawre/leetcode.nvim",
 	build = ":TSUpdate html",

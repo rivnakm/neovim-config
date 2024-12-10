@@ -1,3 +1,4 @@
+-- Show git changes in gutter
 return {
 	"lewis6991/gitsigns.nvim",
 	opts = {

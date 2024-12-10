@@ -1,3 +1,4 @@
+-- auto-pair parentheses and brackets
 return {
 	"windwp/nvim-autopairs",
 	event = "InsertEnter",

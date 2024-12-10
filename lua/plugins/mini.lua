@@ -1,3 +1,4 @@
+-- Misc small plugins
 return {
 	"echasnovski/mini.nvim",
 	config = function()

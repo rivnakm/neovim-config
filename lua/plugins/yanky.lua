@@ -1,3 +1,4 @@
+-- Changes behavior of yank and put actions
 return {
 	"gbprod/yanky.nvim",
 	config = function()

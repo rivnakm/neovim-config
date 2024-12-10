@@ -1,3 +1,4 @@
+-- Language server config
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {

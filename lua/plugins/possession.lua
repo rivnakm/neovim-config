@@ -1,3 +1,4 @@
+-- Session manager
 return {
 	"jedrzejboczar/possession.nvim",
 	dependencies = {

@@ -1,3 +1,4 @@
+-- Some new replacement motions
 return {
 	"gbprod/substitute.nvim",
 	config = function()

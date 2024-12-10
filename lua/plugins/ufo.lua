@@ -1,3 +1,4 @@
+-- LSP-based folds
 return {
 	"kevinhwang91/nvim-ufo",
 	dependencies = {

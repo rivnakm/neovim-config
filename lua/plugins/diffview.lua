@@ -1,3 +1,4 @@
+-- Pretty diff view
 return {
 	"sindrets/diffview.nvim",
 	config = function()

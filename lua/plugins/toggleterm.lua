@@ -1,3 +1,4 @@
+-- Adds a command to quickly open/close terminal windows
 return {
 	"akinsho/toggleterm.nvim",
 	event = "WinEnter",

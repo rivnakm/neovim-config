@@ -1,3 +1,4 @@
+-- Fuzzy finder interface
 return {
 	"nvim-telescope/telescope.nvim",
 	event = "VimEnter",
