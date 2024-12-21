@@ -52,6 +52,7 @@ set_file_tab_width("*.hpp", 4) -- vim-sleuth gets confused with my clang-format 
 set_file_tab_width("*.cpp", 4)
 set_file_tab_width("*.h", 4)
 set_file_tab_width("*.c", 4)
+set_file_tab_width("*.py", 4) -- vim-sleuth occasionaly decides to use 8 space tabs in python
 set_file_tab_width("*.java", 4) -- jdt.ls is weird
 set_file_tab_width("CMakeLists.txt", 2)
 
