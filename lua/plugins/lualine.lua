@@ -11,7 +11,7 @@ return {
 			options = {
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
-				theme = "catppuccin",
+				theme = "modus-vivendi",
 				globalstatus = false,
 				disabled_filetypes = { "NVimTree", "NeogitStatus" },
 				ignore_focus = { "NVimTree", "NeogitStatus" },

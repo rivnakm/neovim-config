@@ -242,7 +242,7 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.catppuccin"),
+	require("themes.modus"),
 
 	-- Misc
 	require("plugins.leetcode"),
