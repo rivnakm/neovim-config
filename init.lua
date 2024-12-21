@@ -223,6 +223,7 @@ require("lazy").setup({
 	require("plugins.dressing"),
 	require("plugins.notify"),
 	require("plugins.diffview"),
+	require("plugins.treesitter-context"),
 
 	-- Usability
 	require("plugins.autopairs"),
