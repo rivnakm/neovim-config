@@ -130,6 +130,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Set background color type
+vim.o.background = "Light"
+
 -- [[ Basic Keymaps ]]
 -- Quick exit insert mode
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
@@ -249,3 +252,6 @@ require("lazy").setup({
 	-- Misc
 	require("plugins.leetcode"),
 }, {})
+
+-- Set color scheme
+vim.cmd.colorscheme("modus_operandi")
