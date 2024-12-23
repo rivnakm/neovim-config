@@ -105,7 +105,7 @@ return {
 			ocamllsp = {},
 			pyright = {},
 			qmlls = {
-				cmd = { "qmlls6" },
+				cmd = { "qmlls" },
 			},
 			rust_analyzer = {
 				settings = {
