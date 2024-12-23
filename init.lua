@@ -131,7 +131,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Set background color type
-vim.o.background = "Light"
+vim.o.background = string.lower("Dark")
 
 -- [[ Basic Keymaps ]]
 -- Quick exit insert mode
@@ -254,4 +254,4 @@ require("lazy").setup({
 }, {})
 
 -- Set color scheme
-vim.cmd.colorscheme("modus_operandi")
+vim.cmd.colorscheme("modus_vivendi")
