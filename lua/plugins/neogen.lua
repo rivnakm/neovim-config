@@ -2,7 +2,16 @@
 return {
 	"danymat/neogen",
 	config = function()
-		require("neogen").setup({})
+		require("neogen").setup({
+			enabled = true,
+			languages = {
+				cs = {
+					template = {
+						annotation_convention = "xmldoc",
+					},
+				},
+			},
+		})
 		vim.keymap.set(
 			"n",
 			"<leader>nda",

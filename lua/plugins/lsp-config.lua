@@ -103,7 +103,6 @@ return {
 				},
 			},
 			ocamllsp = {},
-			pyright = {},
 			qmlls = {
 				cmd = { "qmlls" },
 			},
@@ -162,8 +161,29 @@ return {
 
 		-- Language servers managed by mason
 		local mason_servers = {
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						analysis = {
+							diagnosticMode = "openFilesOnly",
+						},
+					},
+				},
+			},
 			bashls = {},
 			cssls = {},
+			cucumber_language_server = {
+				settings = {
+					cucumber = {
+						features = {
+							"**/Features/**/*.feature",
+						},
+						glue = {
+							"**/Steps/**/*.cs",
+						},
+					},
+				},
+			},
 			jsonls = {},
 			lua_ls = {
 				settings = {

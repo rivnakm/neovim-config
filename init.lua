@@ -54,11 +54,13 @@ set_file_tab_width("*.h", 4)
 set_file_tab_width("*.c", 4)
 set_file_tab_width("*.py", 4) -- vim-sleuth occasionaly decides to use 8 space tabs in python
 set_file_tab_width("*.java", 4) -- jdt.ls is weird
+set_file_tab_width("*.feature", 2)
 set_file_tab_width("CMakeLists.txt", 2)
 
 -- Custom filetypes
 vim.filetype.add({
 	extension = {
+		runsettings = "xml",
 		xaml = "xaml",
 		axaml = "xaml",
 	},

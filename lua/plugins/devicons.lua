@@ -40,6 +40,11 @@ return {
 				color = "#4E4187",
 				name = "Ebuild",
 			},
+			["feature"] = {
+				icon = "",
+				color = "#00a818",
+				name = "Cucumber",
+			},
 			["go"] = {
 				icon = "󰟓",
 				color = "#00ADD8",
