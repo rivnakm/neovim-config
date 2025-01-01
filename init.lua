@@ -253,6 +253,7 @@ require("lazy").setup({
 
 	-- Misc
 	require("plugins.leetcode"),
+	require("plugins.snow"),
 }, {})
 
 -- Set color scheme
