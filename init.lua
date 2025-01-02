@@ -241,7 +241,8 @@ require("lazy").setup({
 	require("plugins.cutlass"),
 	require("plugins.early-retirement"),
 	require("plugins.flash"),
-  require("plugins.harpoon"),
+	require("plugins.grapple"),
+	require("plugins.marks"),
 	require("plugins.mini"),
 	require("plugins.numb"),
 	require("plugins.possession"),
@@ -263,6 +264,7 @@ require("lazy").setup({
 	-- Misc
 	require("plugins.hardtime"),
 	require("plugins.leetcode"),
+	require("plugins.rest"),
 	require("plugins.snow"),
 }, {})
 
