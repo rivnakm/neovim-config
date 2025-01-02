@@ -163,6 +163,9 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Display a line at 120 columns
+vim.opt.colorcolumn = "120"
+
 -- [[ Format Command ]]
 vim.api.nvim_create_user_command("Format", function(args)
 	local range = nil
@@ -200,11 +203,11 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require("lazy").setup({
 	-- Language Servers, Highlighting, Formatting
-	require("plugins.lsp-config"),
-	require("plugins.treesitter"),
 	---@diagnostic disable-next-line: different-requires
 	require("plugins.conform"),
+	require("plugins.lsp-config"),
 	require("plugins.lsp-lines"),
+	require("plugins.treesitter"),
 
 	-- Debugging
 	require("plugins.dap"),
@@ -216,34 +219,40 @@ require("lazy").setup({
 	require("plugins.neogen"),
 
 	-- UI
-	require("plugins.git-signs"),
-	require("plugins.nvim-tree"),
-	require("plugins.lualine"),
 	require("plugins.barbar"),
-	require("plugins.neogit"),
-	require("plugins.toggleterm"),
-	require("plugins.scrollbar"),
-	require("plugins.scrollEOF"),
+	require("plugins.diffview"),
+	require("plugins.dressing"),
+	require("plugins.git-signs"),
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
-	require("plugins.dressing"),
+	require("plugins.lualine"),
+	require("plugins.neogit"),
 	require("plugins.notify"),
-	require("plugins.diffview"),
+	require("plugins.nvim-tree"),
+	require("plugins.scrollbar"),
+	require("plugins.scrollEOF"),
+	require("plugins.toggleterm"),
 	require("plugins.treesitter-context"),
+	require("plugins.virt-column"),
 
 	-- Usability
 	require("plugins.autopairs"),
+	require("plugins.comment"),
 	require("plugins.cutlass"),
-	require("plugins.substitute"),
-	require("plugins.yanky"),
-	require("plugins.stay-in-place"),
+	require("plugins.early-retirement"),
+	require("plugins.flash"),
+  require("plugins.harpoon"),
+	require("plugins.mini"),
+	require("plugins.numb"),
 	require("plugins.possession"),
-	require("plugins.vim-sleuth"),
-	require("plugins.which-key"),
+	require("plugins.stay-in-place"),
+	require("plugins.substitute"),
 	require("plugins.telescope"),
 	require("plugins.todo-comments"),
-	require("plugins.mini"),
 	require("plugins.ufo"),
+	require("plugins.vim-sleuth"),
+	require("plugins.which-key"),
+	require("plugins.yanky"),
 
 	-- Icons
 	require("plugins.devicons"),
@@ -252,6 +261,7 @@ require("lazy").setup({
 	require("themes.modus"),
 
 	-- Misc
+	require("plugins.hardtime"),
 	require("plugins.leetcode"),
 	require("plugins.snow"),
 }, {})
