@@ -264,7 +264,6 @@ require("lazy").setup({
 	-- Misc
 	require("plugins.hardtime"),
 	require("plugins.leetcode"),
-	require("plugins.rest"),
 	require("plugins.snow"),
 }, {})
 

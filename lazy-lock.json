@@ -48,7 +48,6 @@
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "possession.nvim": { "branch": "master", "commit": "246050074fa9878ca414badc613e0645867308b5" },
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
-  "rest.nvim": { "branch": "main", "commit": "545509268d5e928d72d64764c21ef65c77e90edf" },
   "scrollEOF.nvim": { "branch": "master", "commit": "f0ce8b853b15edacc5380855fbfe9e606788df69" },
   "stay-in-place.nvim": { "branch": "main", "commit": "0628b6db8970fc731abf9608d6f80659b58932c9" },
   "substitute.nvim": { "branch": "main", "commit": "97f49d16f8eea7967d41db4f657dd63af53eeba1" },
