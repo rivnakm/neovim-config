@@ -90,6 +90,7 @@ return {
 			},
 			cmake = {}, -- lsp
 			csharp_ls = {},
+			djlsp = {}, -- django-template-lsp in Mason
 			fsautocomplete = {},
 			gopls = {
 				hints = {
@@ -184,7 +185,11 @@ return {
 					},
 				},
 			},
-			jsonls = {},
+			html = {
+				init_options = {
+					provideFormatter = false,
+				},
+			},
 			lua_ls = {
 				settings = {
 					Lua = {
@@ -209,6 +214,9 @@ return {
 				},
 			},
 			markuplint = {},
+			powershell_es = {
+				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+			},
 			prettierd = {},
 			stylua = {},
 			volar = {},
