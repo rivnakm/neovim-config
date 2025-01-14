@@ -64,6 +64,7 @@ vim.filetype.add({
 		runsettings = "xml",
 		xaml = "xaml",
 		axaml = "xaml",
+		container = "systemd", -- Quadlet container services
 	},
 	filename = {
 		["Directory.Packages.props"] = "xml",
