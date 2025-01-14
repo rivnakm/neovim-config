@@ -23,6 +23,11 @@ return {
 				color = "#FDDD00",
 				name = "Go_Workspace",
 			},
+			["Jenkinsfile"] = {
+				icon = "",
+				color = "#81b0c4",
+				name = "Jenkinsfile",
+			},
 		},
 		override_by_extension = {
 			["cs"] = {
