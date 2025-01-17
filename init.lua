@@ -56,6 +56,8 @@ set_file_tab_width("*.py", 4) -- vim-sleuth occasionaly decides to use 8 space t
 set_file_tab_width("*.java", 4) -- jdt.ls is weird
 set_file_tab_width("*.feature", 2)
 set_file_tab_width("*.nu", 4)
+set_file_tab_width("*.yaml", 2)
+set_file_tab_width("*.yml", 2)
 set_file_tab_width("CMakeLists.txt", 2)
 
 -- Custom filetypes

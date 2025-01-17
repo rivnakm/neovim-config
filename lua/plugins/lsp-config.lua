@@ -91,6 +91,7 @@ return {
 			cmake = {}, -- lsp
 			csharp_ls = {},
 			djlsp = {}, -- django-template-lsp in Mason
+			fish_lsp = {},
 			fsautocomplete = {},
 			gopls = {
 				hints = {
@@ -116,34 +117,7 @@ return {
 					},
 				},
 			},
-			ts_ls = {
-				init_options = {
-					preferences = {
-						includeInlayParameterNameHints = "all",
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayVariableTypeHints = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayEnumMemberValueHints = true,
-						importModuleSpecifierPreference = "non-relative",
-					},
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
-							languages = {
-								"vue",
-							},
-						},
-					},
-				},
-				filetypes = {
-					"javascript",
-					"typescript",
-					"vue",
-				},
-			},
+			taplo = {},
 			zls = {
 				settings = {
 					zls = {
@@ -162,6 +136,7 @@ return {
 
 		-- Language servers managed by mason
 		local mason_servers = {
+			astro = {},
 			basedpyright = {
 				settings = {
 					basedpyright = {
@@ -219,6 +194,35 @@ return {
 			},
 			prettierd = {},
 			stylua = {},
+			terraformls = {},
+			ts_ls = {
+				init_options = {
+					preferences = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+						importModuleSpecifierPreference = "non-relative",
+					},
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
+							languages = {
+								"vue",
+							},
+						},
+					},
+				},
+				filetypes = {
+					"javascript",
+					"typescript",
+					"vue",
+				},
+			},
 			volar = {},
 		}
 
