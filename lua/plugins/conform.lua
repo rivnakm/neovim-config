@@ -6,7 +6,7 @@ return {
 		async = true,
 		lsp_fallback = true,
 		format_on_save = {
-			timeout_ms = 2000,
+			timeout_ms = 3000,
 		},
 
 		formatters_by_ft = {

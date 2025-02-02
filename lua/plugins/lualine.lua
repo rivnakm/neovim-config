@@ -4,7 +4,6 @@ return {
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
 	},
-	event = "WinEnter",
 	config = function()
 		require("lualine").setup({
 			extensions = { "lazy", "mason", "nvim-tree", "toggleterm" },

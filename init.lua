@@ -71,6 +71,15 @@ vim.filetype.add({
 	filename = {
 		["Directory.Packages.props"] = "xml",
 	},
+	pattern = {
+		["Containerfile.*"] = "dockerfile",
+		["Dockerfile.*"] = "dockerfile",
+		[".*.j2"] = function(path, _, _)
+			local length = string.len(path)
+			local stripped = string.sub(path, 1, length - 3)
+			return vim.filetype.match({ filename = stripped })
+		end,
+	},
 })
 
 -- Automatically toggle between absolute and hybrid line numbers
@@ -264,6 +273,7 @@ require("lazy").setup({
 
 	-- Colorschemes
 	require("themes.modus"),
+	require("themes.vscode"),
 
 	-- Misc
 	require("plugins.leetcode"),
@@ -271,4 +281,4 @@ require("lazy").setup({
 }, {})
 
 -- Set color scheme
-vim.cmd.colorscheme("modus_vivendi")
+vim.cmd.colorscheme("vscode")

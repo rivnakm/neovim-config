@@ -210,8 +210,10 @@ return {
 					plugins = {
 						{
 							name = "@vue/typescript-plugin",
-							location = "/home/michael/.local/share/nvim/mason/bin/vue-language-server",
+							location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
 							languages = {
+								"javascript",
+								"typescript",
 								"vue",
 							},
 						},
@@ -226,7 +228,12 @@ return {
 			volar = {},
 		}
 
-		require("mason").setup()
+		require("mason").setup({
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:crashdummyy/mason-registry",
+			},
+		})
 
 		local ensure_installed = vim.tbl_keys(mason_servers or {})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
