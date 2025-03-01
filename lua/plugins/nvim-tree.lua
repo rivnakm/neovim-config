@@ -18,9 +18,10 @@ return {
 				show_on_open_dirs = false,
 			},
 			git = {
-				enable = false,
+				enable = true,
 			},
 			renderer = {
+				highlight_git = "name",
 				icons = {
 					glyphs = {
 						folder = {
