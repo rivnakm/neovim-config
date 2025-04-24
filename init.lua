@@ -275,13 +275,9 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.modus"),
-	require("themes.vscode"),
+	require("themes.catppuccin"),
 
 	-- Misc
 	require("plugins.leetcode"),
 	require("plugins.snow"),
 }, {})
-
--- Set color scheme
-vim.cmd.colorscheme("vscode")

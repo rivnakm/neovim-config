@@ -2,5 +2,9 @@
 return {
 	"petertriho/nvim-scrollbar",
 	event = "BufEnter",
-	opts = {},
+	opts = {
+		handle = {
+			color = "#272734",
+		},
+	},
 }
