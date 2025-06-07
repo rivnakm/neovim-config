@@ -1,9 +1,8 @@
 -- Language server config
 return {
-	"neovim/nvim-lspconfig",
+	"williamboman/mason.nvim",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for neovim
-		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -11,6 +10,18 @@ return {
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
+		-- Vue language server setup
+		-- https://github.com/vuejs/language-tools/wiki/Neovim
+		local vue_ls_path = vim.fn.expand("$MASON/packages")
+			.. "/vue-language-server"
+			.. "/node_modules/@vue/language-server"
+		local vue_plugin = {
+			name = "@vue/typescript-plugin",
+			location = vue_ls_path,
+			languages = { "vue" },
+			configNamespace = "typescript",
+		}
+
 		--  This function gets run when an LSP attaches to a particular buffer.
 		--    That is to say, every time a new file is opened that is associated with
 		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -132,11 +143,12 @@ return {
 		for server_name, server in pairs(servers) do
 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 			server.on_attach = on_attach
-			require("lspconfig")[server_name].setup(server)
+			vim.lsp.config(server_name, server)
 		end
 
 		-- Language servers managed by mason
 		local mason_servers = {
+			ansiblels = {},
 			astro = {},
 			basedpyright = {
 				settings = {
@@ -196,8 +208,42 @@ return {
 			prettierd = {},
 			stylua = {},
 			terraformls = {},
-			ts_ls = {
+			vue_ls = {
+				init_options = {},
+				on_init = function(client)
+					client.handlers["tsserver/request"] = function(_, result, context)
+						local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+						if #clients == 0 then
+							vim.notify(
+								"Could not found `vtsls` lsp client, vue_lsp would not work with it.",
+								vim.log.levels.ERROR
+							)
+							return
+						end
+						local ts_client = clients[1]
+
+						local param = unpack(result)
+						local id, command, payload = unpack(param)
+						ts_client:exec_cmd({
+							command = "typescript.tsserverRequest",
+							arguments = {
+								command,
+								payload,
+							},
+							title = "tsserverRequest",
+						}, { bufnr = context.bufnr }, function(_, r)
+							local response_data = { { id, r.body } }
+							---@diagnostic disable-next-line: param-type-mismatch
+							client:notify("tsserver/response", response_data)
+						end)
+					end
+				end,
+			},
+			vtsls = {
 				init_options = {
+					plugins = {
+						vue_plugin,
+					},
 					preferences = {
 						includeInlayParameterNameHints = "all",
 						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -208,25 +254,13 @@ return {
 						includeInlayEnumMemberValueHints = true,
 						importModuleSpecifierPreference = "non-relative",
 					},
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-							languages = {
-								"javascript",
-								"typescript",
-								"vue",
-							},
-						},
-					},
 				},
 				filetypes = {
-					"javascript",
 					"typescript",
+					"javascript",
 					"vue",
 				},
 			},
-			volar = {},
 		}
 
 		require("mason").setup({
@@ -240,6 +274,8 @@ return {
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			automatic_installation = false,
+			ensure_installed = {},
 			handlers = {
 				function(server_name)
 					local server = mason_servers[server_name] or {}
@@ -248,7 +284,7 @@ return {
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 					server.on_attach = on_attach
-					require("lspconfig")[server_name].setup(server)
+					vim.lsp.config(server_name, server)
 				end,
 			},
 		})
