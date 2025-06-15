@@ -1,8 +1,9 @@
 -- Language server config
 return {
-	"williamboman/mason.nvim",
+	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for neovim
+		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -140,10 +141,11 @@ return {
 			},
 		}
 
+		-- Configure servers
 		for server_name, server in pairs(servers) do
 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 			server.on_attach = on_attach
-			vim.lsp.config(server_name, server)
+			require("lspconfig")[server_name].setup(server)
 		end
 
 		-- Language servers managed by mason
@@ -284,7 +286,7 @@ return {
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 					server.on_attach = on_attach
-					vim.lsp.config(server_name, server)
+					require("lspconfig")[server_name].setup(server)
 				end,
 			},
 		})
