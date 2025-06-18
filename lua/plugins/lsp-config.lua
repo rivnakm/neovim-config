@@ -94,12 +94,6 @@ return {
 		-- https://github.com/vuejs/language-tools/wiki/Neovim
 		-- https://kosu.me/blog/breaking-changes-in-mason-2-0-how-i-updated-my-neovim-lsp-config
 		local vue_ls_path = vim.fn.expand("$MASON/packages") .. "/vue-language-server/node_modules/@vue/language-server"
-		local vue_plugin = {
-			name = "@vue/typescript-plugin",
-			location = vue_ls_path,
-			languages = { "vue" },
-			configNamespace = "typescript",
-		}
 
 		-- Language server configurations
 		local servers = {
@@ -289,6 +283,7 @@ return {
 				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
 			server_config.on_attach = on_attach
 			vim.lsp.config(server_name, server_config)
+			vim.lsp.enable(server_name)
 		end
 
 		-- Stop ZLS from showing errors in a separate buffer
