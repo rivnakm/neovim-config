@@ -5,24 +5,11 @@ return {
 		-- Automatically install LSPs and related tools to stdpath for neovim
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		-- Useful status updates for LSP.
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
-		-- Vue language server setup
-		-- https://github.com/vuejs/language-tools/wiki/Neovim
-		local vue_ls_path = vim.fn.expand("$MASON/packages")
-			.. "/vue-language-server"
-			.. "/node_modules/@vue/language-server"
-		local vue_plugin = {
-			name = "@vue/typescript-plugin",
-			location = vue_ls_path,
-			languages = { "vue" },
-			configNamespace = "typescript",
-		}
-
 		--  This function gets run when an LSP attaches to a particular buffer.
 		--    That is to say, every time a new file is opened that is associated with
 		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -79,8 +66,55 @@ return {
 			end
 		end
 
-		-- Language servers managed by the system
+		require("mason").setup({
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:crashdummyy/mason-registry",
+			},
+		})
+
+		require("mason-lspconfig").setup({
+			automatic_installation = false,
+			automatic_enable = true,
+			ensure_installed = {
+				"ansiblels",
+				"astro",
+				"basedpyright",
+				"bashls",
+				"cssls",
+				"cucumber_language_server",
+				"html",
+				"powershell_es",
+				"terraformls",
+				"vue_ls",
+			},
+		})
+
+		-- Vue language server setup
+		-- https://github.com/vuejs/language-tools/wiki/Neovim
+		-- https://kosu.me/blog/breaking-changes-in-mason-2-0-how-i-updated-my-neovim-lsp-config
+		local vue_ls_path = vim.fn.expand("$MASON/packages") .. "/vue-language-server/node_modules/@vue/language-server"
+		local vue_plugin = {
+			name = "@vue/typescript-plugin",
+			location = vue_ls_path,
+			languages = { "vue" },
+			configNamespace = "typescript",
+		}
+
+		-- Language server configurations
 		local servers = {
+			ansiblels = {},
+			astro = {},
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						analysis = {
+							diagnosticMode = "openFilesOnly",
+						},
+					},
+				},
+			},
+			bashls = {},
 			clangd = {
 				cmd = {
 					"clangd",
@@ -102,6 +136,19 @@ return {
 			},
 			cmake = {}, -- lsp
 			csharp_ls = {},
+			cssls = {},
+			cucumber_language_server = {
+				settings = {
+					cucumber = {
+						features = {
+							"**/Features/**/*.feature",
+						},
+						glue = {
+							"**/Steps/**/*.cs",
+						},
+					},
+				},
+			},
 			djlsp = {}, -- django-template-lsp in Mason
 			fish_lsp = {},
 			fsautocomplete = {},
@@ -114,65 +161,6 @@ return {
 					functionTypeParameters = true,
 					parameterNames = true,
 					rangeVariableTypes = true,
-				},
-			},
-			ocamllsp = {},
-			qmlls = {
-				cmd = { "qmlls" },
-			},
-			rust_analyzer = {
-				settings = {
-					["rust-analyzer"] = {
-						checkOnSave = true,
-						check = {
-							command = "clippy",
-						},
-					},
-				},
-			},
-			taplo = {},
-			zls = {
-				settings = {
-					zls = {
-						enable_build_on_save = true,
-						build_on_save_step = "check",
-					},
-				},
-			},
-		}
-
-		-- Configure servers
-		for server_name, server in pairs(servers) do
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-			server.on_attach = on_attach
-			require("lspconfig")[server_name].setup(server)
-		end
-
-		-- Language servers managed by mason
-		local mason_servers = {
-			ansiblels = {},
-			astro = {},
-			basedpyright = {
-				settings = {
-					basedpyright = {
-						analysis = {
-							diagnosticMode = "openFilesOnly",
-						},
-					},
-				},
-			},
-			bashls = {},
-			cssls = {},
-			cucumber_language_server = {
-				settings = {
-					cucumber = {
-						features = {
-							"**/Features/**/*.feature",
-						},
-						glue = {
-							"**/Steps/**/*.cs",
-						},
-					},
 				},
 			},
 			html = {
@@ -208,12 +196,34 @@ return {
 				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
 			},
 			prettierd = {},
+			ocamllsp = {},
+			qmlls = {
+				cmd = { "qmlls" },
+			},
+			rust_analyzer = {
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = true,
+						check = {
+							command = "clippy",
+						},
+					},
+				},
+			},
 			stylua = {},
+			taplo = {},
 			terraformls = {},
 			vue_ls = {
-				init_options = {},
+				init_options = {
+					typescript = {
+						tsserverRequestCommand = {
+							"typescript.tsserverRequest",
+							"typescript.tsserverResponse",
+						},
+					},
+				},
 				on_init = function(client)
-					client.handlers["tsserver/request"] = function(_, result, context)
+					client.handlers["typescript.tsserverRequest"] = function(_, result, context)
 						local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
 						if #clients == 0 then
 							vim.notify(
@@ -225,71 +235,61 @@ return {
 						local ts_client = clients[1]
 
 						local param = unpack(result)
-						local id, command, payload = unpack(param)
+						local command, payload, id = unpack(param)
 						ts_client:exec_cmd({
 							command = "typescript.tsserverRequest",
 							arguments = {
 								command,
 								payload,
 							},
-							title = "tsserverRequest",
 						}, { bufnr = context.bufnr }, function(_, r)
 							local response_data = { { id, r.body } }
 							---@diagnostic disable-next-line: param-type-mismatch
-							client:notify("tsserver/response", response_data)
+							client:notify("typescript.tsserverResponse", response_data)
 						end)
 					end
 				end,
 			},
 			vtsls = {
-				init_options = {
-					plugins = {
-						vue_plugin,
-					},
-					preferences = {
-						includeInlayParameterNameHints = "all",
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayVariableTypeHints = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayEnumMemberValueHints = true,
-						importModuleSpecifierPreference = "non-relative",
-					},
+				filetypes = { "typescript", "javascript", "vue" },
+				settings = {
+					vtsls = { tsserver = { globalPlugins = {} } },
 				},
-				filetypes = {
-					"typescript",
-					"javascript",
-					"vue",
+				before_init = function(params, config)
+					local result = vim.system(
+						{ "npm", "query", "#vue" },
+						{ cwd = params.workspaceFolders[1].name, text = true }
+					)
+						:wait()
+					if result.stdout ~= "[]" then
+						local vuePluginConfig = {
+							name = "@vue/typescript-plugin",
+							location = vue_ls_path,
+							languages = { "vue" },
+							configNamespace = "typescript",
+							enableForWorkspaceTypeScriptVersions = true,
+						}
+						table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
+					end
+				end,
+			},
+			zls = {
+				settings = {
+					zls = {
+						enable_build_on_save = true,
+						build_on_save_step = "check",
+					},
 				},
 			},
 		}
 
-		require("mason").setup({
-			registries = {
-				"github:mason-org/mason-registry",
-				"github:crashdummyy/mason-registry",
-			},
-		})
-
-		local ensure_installed = vim.tbl_keys(mason_servers or {})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-		require("mason-lspconfig").setup({
-			automatic_installation = false,
-			ensure_installed = {},
-			handlers = {
-				function(server_name)
-					local server = mason_servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					server.on_attach = on_attach
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
-		})
+		-- Configure servers
+		for server_name, server_config in pairs(servers) do
+			server_config.capabilities =
+				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+			server_config.on_attach = on_attach
+			vim.lsp.config(server_name, server_config)
+		end
 
 		-- Stop ZLS from showing errors in a separate buffer
 		-- https://github.com/zigtools/zls/issues/856#issuecomment-1511528925
