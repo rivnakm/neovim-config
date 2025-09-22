@@ -70,6 +70,7 @@ vim.filetype.add({
 		vert = "glsl",
 		frag = "glsl",
 		geom = "glsl",
+		zs = "zenscript",
 	},
 	filename = {
 		["Directory.Packages.props"] = "xml",
@@ -275,7 +276,7 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.catppuccin"),
+	require("themes.vague"),
 
 	-- Misc
 	require("plugins.leetcode"),

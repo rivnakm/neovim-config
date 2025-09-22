@@ -56,5 +56,16 @@ return {
 			highlight = { enable = true },
 			indent = { enable = true },
 		})
+
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+		parser_config.zenscript = {
+			install_info = {
+				url = "~/Code/tree-sitter-zenscript",
+				files = { "src/scanner.c", "src/parser.c" },
+			},
+			requires_generate_from_grammar = false,
+			filetype = "zenscript",
+		}
 	end,
 }
