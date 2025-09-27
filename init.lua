@@ -281,4 +281,5 @@ require("lazy").setup({
 	-- Misc
 	require("plugins.leetcode"),
 	require("plugins.snow"),
+	require("plugins.wakatime"),
 }, {})
