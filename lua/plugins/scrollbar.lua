@@ -4,7 +4,7 @@ return {
 	event = "BufEnter",
 	opts = {
 		handle = {
-			color = "#252530",
+			color = "#2a2a2c",
 		},
 	},
 }

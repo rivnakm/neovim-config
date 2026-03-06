@@ -4,6 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Neovide settings
 local padding = 3
+vim.o.guifont = "IoskeleyMono Nerd Font:h12"
 vim.g.neovide_padding_top = padding
 vim.g.neovide_padding_bottom = padding
 vim.g.neovide_padding_right = padding
@@ -246,8 +247,10 @@ require("lazy").setup({
 	require("plugins.neogit"),
 	require("plugins.notify"),
 	require("plugins.nvim-tree"),
+	require("plugins.aerial"),
 	require("plugins.scrollbar"),
 	require("plugins.scrollEOF"),
+	require("plugins.startup"),
 	require("plugins.toggleterm"),
 	require("plugins.treesitter-context"),
 	require("plugins.virt-column"),
@@ -258,6 +261,8 @@ require("lazy").setup({
 	require("plugins.cutlass"),
 	require("plugins.early-retirement"),
 	require("plugins.flash"),
+	require("plugins.in-and-out"),
+	require("plugins.just"),
 	require("plugins.grapple"),
 	require("plugins.marks"),
 	require("plugins.mini"),
@@ -276,9 +281,10 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.vague"),
+	require("themes.oxocarbon"),
 
 	-- Misc
+	require("plugins.agentic"),
 	require("plugins.leetcode"),
 	require("plugins.snow"),
 	require("plugins.wakatime"),
