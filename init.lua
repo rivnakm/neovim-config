@@ -2,14 +2,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Neovide settings
-local padding = 3
-vim.o.guifont = "IoskeleyMono Nerd Font:h12"
-vim.g.neovide_padding_top = padding
-vim.g.neovide_padding_bottom = padding
-vim.g.neovide_padding_right = padding
-vim.g.neovide_padding_left = padding
-
 -- Enable 24-bit color
 vim.opt.termguicolors = true
 
@@ -281,7 +273,7 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.oxocarbon"),
+	require("themes.modus-vivendi"),
 
 	-- Misc
 	require("plugins.agentic"),

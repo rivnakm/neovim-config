@@ -79,13 +79,15 @@ return {
 			ensure_installed = {
 				"ansiblels",
 				"astro",
-				"basedpyright",
 				"bashls",
 				"cssls",
 				"cucumber_language_server",
 				"html",
+				"omnisharp",
 				"powershell_es",
+				"stylua",
 				"terraformls",
+				"ty",
 				"vue_ls",
 			},
 		})
@@ -99,15 +101,7 @@ return {
 		local servers = {
 			ansiblels = {},
 			astro = {},
-			basedpyright = {
-				settings = {
-					basedpyright = {
-						analysis = {
-							diagnosticMode = "openFilesOnly",
-						},
-					},
-				},
-			},
+			ty = {},
 			bashls = {},
 			clangd = {
 				cmd = {
@@ -129,7 +123,6 @@ return {
 				},
 			},
 			cmake = {}, -- lsp
-			csharp_ls = {},
 			cssls = {},
 			cucumber_language_server = {
 				settings = {
@@ -191,6 +184,9 @@ return {
 			},
 			prettierd = {},
 			ocamllsp = {},
+			omnisharp = {
+				settings = {},
+			},
 			qmlls = {
 				cmd = { "qmlls" },
 			},
@@ -281,7 +277,7 @@ return {
 		for server_name, server_config in pairs(servers) do
 			server_config.capabilities =
 				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
-			server_config.on_attach = on_attach
+			server_config.on_attach = server_config.on_attach or on_attach
 			vim.lsp.config(server_name, server_config)
 			vim.lsp.enable(server_name)
 		end
