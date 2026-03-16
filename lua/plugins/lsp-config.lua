@@ -83,7 +83,6 @@ return {
 				"cssls",
 				"cucumber_language_server",
 				"html",
-				"omnisharp",
 				"powershell_es",
 				"stylua",
 				"terraformls",
@@ -123,6 +122,7 @@ return {
 				},
 			},
 			cmake = {}, -- lsp
+			csharp_ls = {},
 			cssls = {},
 			cucumber_language_server = {
 				settings = {
@@ -184,9 +184,6 @@ return {
 			},
 			prettierd = {},
 			ocamllsp = {},
-			omnisharp = {
-				settings = {},
-			},
 			qmlls = {
 				cmd = { "qmlls" },
 			},
