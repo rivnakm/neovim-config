@@ -216,7 +216,8 @@ require("lazy").setup({
 	---@diagnostic disable-next-line: different-requires
 	require("plugins.conform"),
 	require("plugins.lsp-config"),
-	require("plugins.lsp-lines"),
+	require("plugins.tiny-inline-diagnostic"),
+	-- require("plugins.lsp-lines"),
 	require("plugins.treesitter"),
 
 	-- Debugging
@@ -242,7 +243,7 @@ require("lazy").setup({
 	require("plugins.aerial"),
 	require("plugins.scrollbar"),
 	require("plugins.scrollEOF"),
-	require("plugins.startup"),
+	require("plugins.tiny-cmdline"),
 	require("plugins.toggleterm"),
 	require("plugins.treesitter-context"),
 	require("plugins.virt-column"),

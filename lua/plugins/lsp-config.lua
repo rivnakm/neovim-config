@@ -8,6 +8,9 @@ return {
 
 		-- Useful status updates for LSP.
 		{ "j-hui/fidget.nvim", opts = {} },
+
+		-- JSON schemas from SchemaStore
+		"b0o/schemastore.nvim",
 	},
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
@@ -83,6 +86,8 @@ return {
 				"cssls",
 				"cucumber_language_server",
 				"html",
+				"jsonls",
+				"lua_ls",
 				"powershell_es",
 				"stylua",
 				"terraformls",
@@ -99,6 +104,14 @@ return {
 		-- Language server configurations
 		local servers = {
 			ansiblels = {},
+			jsonls = {
+				settings = {
+					json = {
+						schemas = require("schemastore").json.schemas(),
+						validate = { enable = true },
+					},
+				},
+			},
 			astro = {},
 			ty = {},
 			bashls = {},
