@@ -4,7 +4,7 @@ return {
 	build = ":TSUpdate",
 	config = function()
 		---@diagnostic disable-next-line: missing-fields
-		require("nvim-treesitter.configs").setup({
+		require("nvim-treesitter").setup({
 			ensure_installed = {
 				"asm",
 				"bash",
@@ -57,15 +57,6 @@ return {
 			indent = { enable = true },
 		})
 
-		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-		parser_config.zenscript = {
-			install_info = {
-				url = "~/Code/tree-sitter-zenscript",
-				files = { "src/scanner.c", "src/parser.c" },
-			},
-			requires_generate_from_grammar = false,
-			filetype = "zenscript",
-		}
+		vim.treesitter.language.register("zenscript", "zenscript")
 	end,
 }

@@ -5,7 +5,7 @@ return {
 	config = function()
 		require("modus-themes").setup({
 			style = "modus_vivendi",
-			variant = "default",
+			variants = "default",
 		})
 		vim.cmd.colorscheme("modus_vivendi")
 	end,
