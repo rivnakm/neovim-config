@@ -104,14 +104,7 @@ return {
 		-- Language server configurations
 		local servers = {
 			ansiblels = {},
-			jsonls = {
-				settings = {
-					json = {
-						schemas = require("schemastore").json.schemas(),
-						validate = { enable = true },
-					},
-				},
-			},
+			asm_lsp = {},
 			astro = {},
 			ty = {},
 			bashls = {},
@@ -166,6 +159,14 @@ return {
 			html = {
 				init_options = {
 					provideFormatter = false,
+				},
+			},
+			jsonls = {
+				settings = {
+					json = {
+						schemas = require("schemastore").json.schemas(),
+						validate = { enable = true },
+					},
 				},
 			},
 			lua_ls = {
