@@ -259,7 +259,6 @@ require("lazy").setup({
 	require("plugins.marks"),
 	require("plugins.mini"),
 	require("plugins.numb"),
-	require("plugins.possession"),
 	require("plugins.stay-in-place"),
 	require("plugins.substitute"),
 	require("plugins.telescope"),
