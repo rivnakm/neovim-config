@@ -11,6 +11,9 @@ return {
 
 		-- JSON schemas from SchemaStore
 		"b0o/schemastore.nvim",
+
+		-- Blink completion capabilities
+		"saghen/blink.cmp",
 	},
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
@@ -52,7 +55,7 @@ return {
 		})
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 		-- for nvim-ufo
 		capabilities.textDocument.foldingRange = {
