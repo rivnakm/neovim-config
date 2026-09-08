@@ -241,7 +241,6 @@ require("lazy").setup({
 	require("plugins.scrollEOF"),
 	require("plugins.snacks"),
 	require("plugins.tiny-cmdline"),
-	require("plugins.toggleterm"),
 	require("plugins.treesitter-context"),
 	require("plugins.virt-column"),
 

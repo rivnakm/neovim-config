@@ -6,7 +6,7 @@ return {
 	},
 	config = function()
 		require("lualine").setup({
-			extensions = { "lazy", "mason", "nvim-tree", "toggleterm" },
+			extensions = { "lazy", "mason", "nvim-tree" },
 			options = {
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
