@@ -12,7 +12,6 @@ return {
 			["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
 			["<leader>d"] = { name = "[D]ocument/[D]iffview", _ = "which_key_ignore" },
 			["<leader>n"] = { name = "[N]eogit/[N]eogen", _ = "which_key_ignore" },
-			["<leader>o"] = { name = "P[o]ssession", _ = "which_key_ignore" },
 			["<leader>p"] = { name = "[P]eek", _ = "which_key_ignore" },
 			["<leader>r"] = { name = "[R]ename/[R]EST", _ = "which_key_ignore" },
 			["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
