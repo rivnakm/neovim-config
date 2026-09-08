@@ -260,7 +260,6 @@ require("lazy").setup({
 	require("plugins.mini"),
 	require("plugins.numb"),
 	require("plugins.stay-in-place"),
-	require("plugins.substitute"),
 	require("plugins.telescope"),
 	require("plugins.todo-comments"),
 	require("plugins.ufo"),
