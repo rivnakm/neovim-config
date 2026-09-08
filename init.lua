@@ -250,7 +250,6 @@ require("lazy").setup({
 	require("plugins.autopairs"),
 	require("plugins.comment"),
 	require("plugins.cutlass"),
-	require("plugins.early-retirement"),
 	require("plugins.flash"),
 	require("plugins.in-and-out"),
 	require("plugins.just"),
