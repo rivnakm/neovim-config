@@ -199,7 +199,7 @@ return {
 			prettierd = {},
 			ocamllsp = {},
 			qmlls = {
-				cmd = { "qmlls" },
+				cmd = { "qmlls6" },
 			},
 			rust_analyzer = {
 				settings = {
