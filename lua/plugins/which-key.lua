@@ -8,15 +8,24 @@ return {
 		})
 
 		require("which-key").register({
-			["<leader>b"] = { name = "[B]arbar", _ = "which_key_ignore" },
-			["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-			["<leader>d"] = { name = "[D]ocument/[D]iffview", _ = "which_key_ignore" },
-			["<leader>n"] = { name = "[N]eogit/[N]eogen", _ = "which_key_ignore" },
-			["<leader>p"] = { name = "[P]eek", _ = "which_key_ignore" },
-			["<leader>r"] = { name = "[R]ename/[R]EST", _ = "which_key_ignore" },
-			["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-			["<leader>t"] = { name = "nvim-[T]ree/[T]erminal", _ = "which_key_ignore" },
-			["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+			{ "<leader>b", group = "[B]arbar" },
+			{ "<leader>b_", hidden = true },
+			{ "<leader>c", group = "[C]ode" },
+			{ "<leader>c_", hidden = true },
+			{ "<leader>d", group = "[D]ocument/[D]iffview" },
+			{ "<leader>d_", hidden = true },
+			{ "<leader>n", group = "[N]eogit/[N]eogen" },
+			{ "<leader>n_", hidden = true },
+			{ "<leader>p", group = "[P]eek" },
+			{ "<leader>p_", hidden = true },
+			{ "<leader>r", group = "[R]ename/[R]EST" },
+			{ "<leader>r_", hidden = true },
+			{ "<leader>s", group = "[S]earch" },
+			{ "<leader>s_", hidden = true },
+			{ "<leader>t", group = "nvim-[T]ree/[T]erminal" },
+			{ "<leader>t_", hidden = true },
+			{ "<leader>w", group = "[W]orkspace" },
+			{ "<leader>w_", hidden = true },
 		})
 	end,
 }
