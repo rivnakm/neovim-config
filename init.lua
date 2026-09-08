@@ -226,7 +226,6 @@ require("lazy").setup({
 
 	-- Completion and Snippets
 	require("plugins.completion"),
-	-- require("plugins.copilot"),
 	require("plugins.neogen"),
 
 	-- UI
