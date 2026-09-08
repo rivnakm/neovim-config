@@ -6,8 +6,13 @@ return {
 		"sindrets/diffview.nvim", -- optional - Diff integration
 		"nvim-telescope/telescope.nvim", -- optional
 	},
-	config = function()
-		require("neogit").setup({})
-		vim.keymap.set("n", "<leader>ng", "<Cmd>Neogit<CR>", { noremap = true, silent = true, desc = "Neogit" })
-	end,
+	keys = {
+		{
+			"<leader>ng",
+			"<Cmd>Neogit<CR>",
+			noremap = true,
+			silent = true,
+			desc = "Neogit",
+		},
+	},
 }

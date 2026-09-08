@@ -14,7 +14,7 @@ return {
 			{ "<leader>c_", hidden = true },
 			{ "<leader>d", group = "[D]ocument/[D]iffview" },
 			{ "<leader>d_", hidden = true },
-			{ "<leader>n", group = "[N]eogit/[N]eogen" },
+			{ "<leader>n", group = "[N]eogit/[N]eogen/jujutsu" },
 			{ "<leader>n_", hidden = true },
 			{ "<leader>p", group = "[P]eek" },
 			{ "<leader>p_", hidden = true },
