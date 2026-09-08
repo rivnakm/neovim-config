@@ -265,7 +265,7 @@ require("lazy").setup({
 	require("plugins.devicons"),
 
 	-- Colorschemes
-	require("themes.modus-vivendi"),
+	require("themes.oxocarbon"),
 
 	-- Misc
 	require("plugins.agentic"),
