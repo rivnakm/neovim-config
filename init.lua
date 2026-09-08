@@ -234,7 +234,6 @@ require("lazy").setup({
 	require("plugins.git-signs"),
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
-	require("plugins.jujutsu"),
 	require("plugins.lualine"),
 	require("plugins.neogit"),
 	require("plugins.nvim-tree"),

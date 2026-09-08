@@ -11,6 +11,13 @@ return {
 			end,
 			desc = "Toggle terminal",
 		},
+		{
+			"<leader>nj",
+			function()
+				Snacks.terminal.open("jjui")
+			end,
+			desc = "Jujutsu",
+		},
 	},
 	opts = {
 		indent = {},
