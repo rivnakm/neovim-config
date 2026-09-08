@@ -231,7 +231,6 @@ require("lazy").setup({
 	-- UI
 	require("plugins.barbar"),
 	require("plugins.diffview"),
-	require("plugins.dressing"),
 	require("plugins.git-signs"),
 	require("plugins.glow"),
 	require("plugins.highlight-color"),
