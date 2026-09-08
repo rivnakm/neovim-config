@@ -12,7 +12,7 @@ return {
 			desc = "Toggle terminal",
 		},
 		{
-			"<leader>nj",
+			"<leader>jj",
 			function()
 				Snacks.terminal.open("jjui")
 			end,

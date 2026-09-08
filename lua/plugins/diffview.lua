@@ -1,19 +1,20 @@
 -- Pretty diff view
 return {
 	"sindrets/diffview.nvim",
-	config = function()
-		require("diffview").setup({})
-		vim.keymap.set(
-			"n",
+	keys = {
+		{
 			"<leader>dvo",
 			"<Cmd>DiffviewOpen<CR>",
-			{ noremap = true, silent = true, desc = "Diffview Open" }
-		)
-		vim.keymap.set(
-			"n",
+			noremap = true,
+			silent = true,
+			desc = "Diffview Open",
+		},
+		{
 			"<leader>dvc",
 			"<Cmd>DiffviewClose<CR>",
-			{ noremap = true, silent = true, desc = "Diffview Close" }
-		)
-	end,
+			noremap = true,
+			silent = true,
+			desc = "Diffview Close",
+		},
+	},
 }

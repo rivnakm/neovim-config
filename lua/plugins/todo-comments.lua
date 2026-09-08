@@ -1,8 +1,8 @@
 -- Highlight TODO and other special comments
 return {
 	"folke/todo-comments.nvim",
-	event = "VimEnter",
 	dependencies = { "nvim-lua/plenary.nvim" },
+	event = "BufEnter",
 	opts = {
 		signs = false,
 		keywords = {

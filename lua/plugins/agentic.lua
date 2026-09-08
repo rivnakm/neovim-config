@@ -10,7 +10,6 @@ return {
 			function()
 				require("agentic").toggle()
 			end,
-			mode = { "n", "v", "i" },
 			desc = "[A]gentic [T]oggle chat",
 		},
 		{
@@ -18,7 +17,6 @@ return {
 			function()
 				require("agentic").add_selection_or_file_to_context()
 			end,
-			mode = { "n", "v" },
 			desc = "[A]gentic add to [C]ontext",
 		},
 		{
@@ -26,7 +24,6 @@ return {
 			function()
 				require("agentic").new_session()
 			end,
-			mode = { "n", "v", "i" },
 			desc = "[A]gentic [N]ew session",
 		},
 	},
