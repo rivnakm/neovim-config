@@ -229,6 +229,7 @@ require("lazy").setup({
 	require("plugins.neogen"),
 
 	-- UI
+	require("plugins.aerial"),
 	require("plugins.barbar"),
 	require("plugins.diffview"),
 	require("plugins.git-signs"),
@@ -236,11 +237,10 @@ require("lazy").setup({
 	require("plugins.highlight-color"),
 	require("plugins.lualine"),
 	require("plugins.neogit"),
-	require("plugins.notify"),
 	require("plugins.nvim-tree"),
-	require("plugins.aerial"),
 	require("plugins.scrollbar"),
 	require("plugins.scrollEOF"),
+	require("plugins.snacks"),
 	require("plugins.tiny-cmdline"),
 	require("plugins.toggleterm"),
 	require("plugins.treesitter-context"),
