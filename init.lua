@@ -252,7 +252,6 @@ require("lazy").setup({
 	require("plugins.cutlass"),
 	require("plugins.flash"),
 	require("plugins.just"),
-	require("plugins.marks"),
 	require("plugins.mini"),
 	require("plugins.numb"),
 	require("plugins.stay-in-place"),
