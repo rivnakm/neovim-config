@@ -253,7 +253,6 @@ require("lazy").setup({
 	require("plugins.flash"),
 	require("plugins.in-and-out"),
 	require("plugins.just"),
-	require("plugins.grapple"),
 	require("plugins.marks"),
 	require("plugins.mini"),
 	require("plugins.numb"),
