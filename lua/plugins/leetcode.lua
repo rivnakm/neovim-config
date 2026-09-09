@@ -12,5 +12,8 @@ return {
 	opts = {
 		arg = "leetcode",
 		lang = "rust",
+		picker = {
+			provider = "telescope",
+		},
 	},
 }
