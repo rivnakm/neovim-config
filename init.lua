@@ -1,7 +1,3 @@
--- Disable netrw since we're using nvim-tree instead
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Enable 24-bit color
 vim.opt.termguicolors = true
 
@@ -231,7 +227,6 @@ require("lazy").setup({
 	require("plugins.neogen"),
 
 	-- UI
-	require("plugins.aerial"),
 	require("plugins.barbar"),
 	require("plugins.diffview"),
 	require("plugins.git-signs"),
@@ -239,12 +234,12 @@ require("lazy").setup({
 	require("plugins.highlight-color"),
 	require("plugins.lualine"),
 	require("plugins.neogit"),
-	require("plugins.nvim-tree"),
 	require("plugins.scrollbar"),
 	require("plugins.scrollEOF"),
 	require("plugins.snacks"),
 	require("plugins.treesitter-context"),
 	require("plugins.virt-column"),
+	require("plugins.yazi"),
 
 	-- Usability
 	require("plugins.autopairs"),

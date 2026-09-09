@@ -2,12 +2,13 @@
 return {
 	"folke/which-key.nvim",
 	event = "VimEnter",
-	config = function()
-		require("which-key").setup({
-			notify = false,
-		})
-
-		require("which-key").register({
+	opts = {
+		notify = false,
+	},
+	init = function()
+		require("which-key").add({
+			{ "<leader>a", group = "[A]gentic/y[A]zi" },
+			{ "<leader>a_", hidden = true },
 			{ "<leader>b", group = "[B]arbar" },
 			{ "<leader>b_", hidden = true },
 			{ "<leader>c", group = "[C]ode" },
@@ -24,7 +25,7 @@ return {
 			{ "<leader>r_", hidden = true },
 			{ "<leader>s", group = "[S]earch" },
 			{ "<leader>s_", hidden = true },
-			{ "<leader>t", group = "nvim-[T]ree/[T]erminal" },
+			{ "<leader>t", group = "[T]erminal" },
 			{ "<leader>t_", hidden = true },
 			{ "<leader>w", group = "[W]orkspace" },
 			{ "<leader>w_", hidden = true },

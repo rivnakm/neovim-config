@@ -75,6 +75,11 @@ return {
 				color = "#3178C6",
 				name = "Typescript",
 			},
+			["zig"] = {
+				icon = "",
+				color = "#F7A41D",
+				name = "Zig",
+			},
 		},
 	},
 }
